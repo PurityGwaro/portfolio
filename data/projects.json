@@ -1,0 +1,12 @@
+[
+  {
+    "title": "Portfolio NEXT",
+    "description": "Custom personal blog space built with the power of Next.js and SSR.",
+    "skills": [
+      "Next.js",
+      "Tailwind",
+      "TypeScript"
+    ],
+    "githubUrl": "https://github.com/puritygwaro"
+  }
+]

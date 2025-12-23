@@ -1,0 +1,78 @@
+[
+  {
+    "name": "Node.js",
+    "category": "Core Backend"
+  },
+  {
+    "name": "Express",
+    "category": "Core Backend"
+  },
+  {
+    "name": "TypeScript",
+    "category": "Core Backend"
+  },
+  {
+    "name": "JavaScript",
+    "category": "Core Backend"
+  },
+  {
+    "name": "GraphQL",
+    "category": "Core Backend"
+  },
+  {
+    "name": "Apollo",
+    "category": "Core Backend"
+  },
+  {
+    "name": "PostgreSQL",
+    "category": "Databases & ORM"
+  },
+  {
+    "name": "MySQL",
+    "category": "Databases & ORM"
+  },
+  {
+    "name": "MongoDB",
+    "category": "Databases & ORM"
+  },
+  {
+    "name": "Prisma ORM",
+    "category": "Databases & ORM"
+  },
+  {
+    "name": "Redis",
+    "category": "Databases & ORM"
+  },
+  {
+    "name": "Docker",
+    "category": "Infrastructure & DevOps"
+  },
+  {
+    "name": "CI/CD",
+    "category": "Infrastructure & DevOps"
+  },
+  {
+    "name": "Netlify",
+    "category": "Infrastructure & DevOps"
+  },
+  {
+    "name": "Vercel",
+    "category": "Infrastructure & DevOps"
+  },
+  {
+    "name": "Kubernetes",
+    "category": "Infrastructure & DevOps"
+  },
+  {
+    "name": "GitHub",
+    "category": "Developer Tools"
+  },
+  {
+    "name": "GitLab",
+    "category": "Developer Tools"
+  },
+  {
+    "name": "Postman",
+    "category": "Developer Tools"
+  }
+]
