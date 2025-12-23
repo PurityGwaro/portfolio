@@ -36,7 +36,7 @@ export default function Navigation() {
           puritygwaro.dev
         </Link>
 
-        <div className="flex items-center gap-8">
+        <div className="flex items-center gap-8" suppressHydrationWarning>
           <Link
             href="/#projects"
             className="text-sm font-medium uppercase tracking-wider text-zinc-900 dark:text-zinc-100 hover:opacity-70 transition-opacity cursor-pointer"

@@ -14,7 +14,7 @@ export default function Footer() {
 
           <div className="flex items-center gap-4 mt-4">
             <a
-              href="https://github.com/puritygwaro"
+              href="https://github.com/PurityGwaro"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2 border-2 border-gray-300 dark:border-gray-700 px-6 py-3 text-sm font-medium uppercase tracking-wider text-zinc-900 dark:text-zinc-100 hover:bg-zinc-900 hover:text-white dark:hover:bg-zinc-100 dark:hover:text-black transition-colors"
@@ -23,7 +23,7 @@ export default function Footer() {
               GitHub
             </a>
             <a
-              href="https://linkedin.com/in/puritygwaro"
+              href="https://linkedin.com/in/purity-gwaro"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2 border-2 border-gray-300 dark:border-gray-700 px-6 py-3 text-sm font-medium uppercase tracking-wider text-zinc-900 dark:text-zinc-100 hover:bg-zinc-900 hover:text-white dark:hover:bg-zinc-100 dark:hover:text-black transition-colors"

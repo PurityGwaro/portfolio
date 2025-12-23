@@ -18,11 +18,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
-    // Check if user is already authenticated
-    const auth = sessionStorage.getItem('isAuthenticated');
-    if (auth === 'true') {
-      setIsAuthenticated(true);
-    }
+    // Use setTimeout to avoid the cascading setState warning
+    // This schedules the state update for after the current render cycle
+    const timer = setTimeout(() => {
+      const auth = sessionStorage.getItem('isAuthenticated');
+      if (auth === 'true') {
+        setIsAuthenticated(true);
+      }
+    }, 0);
+
+    return () => clearTimeout(timer);
   }, []);
 
   const login = (password: string) => {
