@@ -2,9 +2,9 @@ import { Github, Linkedin, Mail } from 'lucide-react';
 
 export default function Hero() {
   return (
-    <section className="mx-auto max-w-7xl px-8 py-32 bg-zinc-50 dark:bg-black min-h-[80vh] flex items-center justify-center">
+    <section className="mx-auto max-w-7xl px-8 py-32 min-h-[80vh] flex items-center justify-center">
       <div className="w-full max-w-5xl">
-        <div className="border-2 border-zinc-900 dark:border-zinc-100 p-16 bg-white dark:bg-black text-center">
+        <div className="border-2 border-zinc-900 dark:border-zinc-100 p-16 text-center">
           <p className="text-sm font-medium uppercase tracking-widest text-zinc-600 dark:text-zinc-400 mb-6">
             Fullstack Developer
           </p>

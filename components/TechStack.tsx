@@ -27,9 +27,9 @@ export default function TechStack() {
   }, {} as Record<string, string[]>);
 
   return (
-    <section id="tech" className="mx-auto max-w-7xl px-8 py-24 bg-zinc-50 dark:bg-black">
+    <section id="tech" className="mx-auto max-w-7xl px-8 py-24">
       <div className="text-center mb-16">
-        <h2 className="text-5xl font-bold uppercase tracking-tight text-zinc-900 dark:text-zinc-100">
+        <h2 className="text-5xl font-bold uppercase tracking-tight dark:text-zinc-100 text-black">
           Tech Stack
         </h2>
       </div>
@@ -40,7 +40,7 @@ export default function TechStack() {
           return (
             <div
               key={category}
-              className="border-2 border-zinc-900 dark:border-zinc-100 p-8 bg-white dark:bg-black"
+              className="border-2 border-zinc-900 dark:border-zinc-100 p-8 text-black"
             >
               <div className="flex items-center gap-3 mb-6">
                 <Icon className="h-6 w-6 text-zinc-900 dark:text-zinc-100" />

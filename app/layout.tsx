@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { ThemeProvider } from "@/components/ThemeProvider";
+import { Providers } from "./providers";
 import { AuthProvider } from "@/components/AuthProvider";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
@@ -27,11 +27,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <ThemeProvider>
+        <Providers>
           <AuthProvider>
             <div className="flex min-h-screen flex-col">
               <Navigation />
@@ -39,7 +39,7 @@ export default function RootLayout({
               <Footer />
             </div>
           </AuthProvider>
-        </ThemeProvider>
+        </Providers>
       </body>
     </html>
   );

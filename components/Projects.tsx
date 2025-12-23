@@ -14,7 +14,7 @@ interface ProjectsProps {
 
 export default function Projects({ projects }: ProjectsProps) {
   return (
-    <section id="projects" className="mx-auto max-w-7xl px-8 py-24 bg-white dark:bg-black">
+    <section id="projects" className="mx-auto max-w-7xl px-8 py-24">
       <div className="text-center mb-16">
         <h2 className="text-5xl font-bold uppercase tracking-tight text-zinc-900 dark:text-zinc-100">
           Expertise
@@ -28,7 +28,7 @@ export default function Projects({ projects }: ProjectsProps) {
         {projects.map((project) => (
           <div
             key={project.title}
-            className="border-2 border-zinc-900 dark:border-zinc-100 p-8 bg-zinc-50 dark:bg-black flex flex-col"
+            className="border-2 border-zinc-900 dark:border-zinc-100 p-8 flex flex-col"
           >
             <h3 className="text-xl font-bold text-zinc-900 dark:text-zinc-100 mb-3">
               {project.title}

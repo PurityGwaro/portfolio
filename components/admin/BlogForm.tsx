@@ -165,7 +165,7 @@ export default function BlogForm() {
         </h2>
         <button
           onClick={() => setIsModalOpen(true)}
-          className="flex items-center gap-2 bg-zinc-900 dark:bg-zinc-100 text-white dark:text-black px-6 py-3 font-medium uppercase tracking-wider hover:bg-zinc-700 dark:hover:bg-zinc-300 transition-colors cursor-pointer"
+          className="flex items-center gap-2 bg-zinc-900 dark:bg-zinc-100 text-zinc-100 dark:text-zinc-900 px-6 py-3 font-medium uppercase tracking-wider hover:bg-zinc-800 dark:hover:bg-zinc-200 transition-colors cursor-pointer"
         >
           <Plus className="h-4 w-4" />
           Add Blog Post
@@ -181,7 +181,7 @@ export default function BlogForm() {
           {blogs.map((blog) => (
             <div
               key={blog.title}
-              className="border border-zinc-900 dark:border-zinc-100 p-4 flex items-start justify-between gap-4"
+              className="border-2 border-zinc-900 dark:border-zinc-100 p-4 flex items-start justify-between gap-4 bg-white dark:bg-black"
             >
               <div className="flex-1">
                 <h4 className="font-bold text-zinc-900 dark:text-zinc-100 mb-1">
@@ -274,14 +274,14 @@ export default function BlogForm() {
           <div className="flex gap-4 mt-6">
             <button
               type="submit"
-              className="flex-1 bg-zinc-900 dark:bg-zinc-100 text-white dark:text-black py-3 font-medium uppercase tracking-wider hover:bg-zinc-700 dark:hover:bg-zinc-300 transition-colors cursor-pointer"
+              className="flex-1 bg-zinc-900 dark:bg-zinc-100 text-zinc-100 dark:text-zinc-900 py-3 font-medium uppercase tracking-wider hover:bg-zinc-800 dark:hover:bg-zinc-200 transition-colors cursor-pointer"
             >
               {editingBlog ? 'Update Blog Post' : 'Add Blog Post'}
             </button>
             <button
               type="button"
               onClick={handleCloseModal}
-              className="px-6 bg-white dark:bg-black border-2 border-zinc-900 dark:border-zinc-100 text-zinc-900 dark:text-zinc-100 py-3 font-medium uppercase tracking-wider hover:bg-zinc-100 dark:hover:bg-zinc-900 transition-colors cursor-pointer"
+              className="px-6 bg-transparent border-2 border-zinc-900 dark:border-zinc-100 text-zinc-900 dark:text-zinc-100 py-3 font-medium uppercase tracking-wider hover:bg-zinc-100 dark:hover:bg-zinc-900 transition-colors cursor-pointer"
             >
               Cancel
             </button>

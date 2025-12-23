@@ -1,16 +1,33 @@
 'use client';
 
 import Link from 'next/link';
-import { useTheme } from './ThemeProvider';
 import { useAuth } from './AuthProvider';
-import { Sun, Moon, LogOut } from 'lucide-react';
+import { LogOut } from 'lucide-react';
+import { ThemeToggle } from './ThemeToggle';
+import { useState, useEffect } from 'react';
 
 export default function Navigation() {
-  const { theme, toggleTheme, mounted } = useTheme();
   const { isAuthenticated, logout } = useAuth();
+  const [hasResume, setHasResume] = useState(false);
+
+  useEffect(() => {
+    const checkResume = async () => {
+      try {
+        const response = await fetch('/api/resume/check');
+        if (response.ok) {
+          const data = await response.json();
+          setHasResume(data.exists);
+        }
+      } catch (error) {
+        console.error('Error checking resume existence:', error);
+        setHasResume(false);
+      }
+    };
+    checkResume();
+  }, []);
 
   return (
-    <nav className="sticky top-0 z-50 border-b-2 border-zinc-900 dark:border-zinc-100 bg-zinc-50 dark:bg-black">
+    <nav className="sticky top-0 z-50 border-b-2 border-zinc-900 dark:border-zinc-100 bg-white dark:bg-black">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-8 py-6">
         <Link
           href="/"
@@ -38,6 +55,15 @@ export default function Navigation() {
           >
             Blog
           </Link>
+          {hasResume && (
+            <a
+              href="/api/resume"
+              download
+              className="text-sm font-medium uppercase tracking-wider text-zinc-900 dark:text-zinc-100 hover:opacity-70 transition-opacity cursor-pointer"
+            >
+              Resume
+            </a>
+          )}
 
           {isAuthenticated && (
             <>
@@ -57,19 +83,7 @@ export default function Navigation() {
             </>
           )}
 
-          {mounted && (
-            <button
-              onClick={toggleTheme}
-              className="ml-2 rounded-full p-2 text-zinc-900 hover:bg-zinc-200 dark:text-zinc-100 dark:hover:bg-zinc-800 transition-colors"
-              aria-label="Toggle theme"
-            >
-              {theme === 'dark' ? (
-                <Sun className="h-4 w-4" />
-              ) : (
-                <Moon className="h-4 w-4" />
-              )}
-            </button>
-          )}
+          <ThemeToggle />
         </div>
       </div>
     </nav>

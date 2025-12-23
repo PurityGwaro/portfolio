@@ -38,7 +38,7 @@ export default function Modal({ isOpen, onClose, title, children }: ModalProps) 
         onClick={onClose}
         aria-label="Close modal"
       />
-      <div className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto border-2 border-zinc-900 dark:border-zinc-100 bg-white dark:bg-black p-6">
+      <div className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto border-2 border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-black p-6">
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-2xl font-bold text-zinc-900 dark:text-zinc-100">
             {title}

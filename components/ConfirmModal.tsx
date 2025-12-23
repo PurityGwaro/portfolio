@@ -54,7 +54,7 @@ export default function ConfirmModal({ isOpen, onConfirm, onCancel, title, messa
           </button>
           <button
             onClick={onCancel}
-            className="flex-1 bg-white dark:bg-black border-2 border-zinc-900 dark:border-zinc-100 text-zinc-900 dark:text-zinc-100 py-3 font-medium uppercase tracking-wider hover:bg-zinc-100 dark:hover:bg-zinc-900 transition-colors cursor-pointer"
+            className="flex-1 bg-transparent border-2 border-zinc-900 dark:border-zinc-100 text-zinc-900 dark:text-zinc-100 py-3 font-medium uppercase tracking-wider hover:bg-zinc-100 dark:hover:bg-zinc-900 transition-colors cursor-pointer"
           >
             Cancel
           </button>

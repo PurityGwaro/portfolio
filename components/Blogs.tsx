@@ -16,7 +16,7 @@ export default function Blogs({ posts }: BlogsProps) {
   }
 
   return (
-    <section id="blog" className="mx-auto max-w-7xl px-8 py-24 bg-zinc-50 dark:bg-black">
+    <section id="blog" className="mx-auto max-w-7xl px-8 py-24">
       <div className="text-center mb-16">
         <h2 className="text-5xl font-bold uppercase tracking-tight text-zinc-900 dark:text-zinc-100">
           Blog
@@ -33,7 +33,7 @@ export default function Blogs({ posts }: BlogsProps) {
             href={post.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="border-2 border-zinc-900 dark:border-zinc-100 p-8 bg-white dark:bg-black hover:bg-zinc-100 dark:hover:bg-zinc-900 transition-colors group"
+            className="border-2 border-zinc-900 dark:border-zinc-100 p-8 hover:bg-zinc-100 dark:hover:bg-zinc-900 transition-colors group"
           >
             <h3 className="text-xl font-bold text-zinc-900 dark:text-zinc-100 mb-3 group-hover:opacity-70 transition-opacity">
               {post.title}
