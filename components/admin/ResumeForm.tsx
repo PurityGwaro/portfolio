@@ -73,7 +73,7 @@ export default function ResumeForm() {
   };
 
   return (
-    <div className="border-2 border-zinc-900 dark:border-zinc-100 p-8 bg-white dark:bg-black">
+    <div className="border-2 border-gray-300 dark:border-gray-700 p-8 bg-white dark:bg-black">
       <div className="mb-6">
         <h2 className="text-2xl font-bold text-zinc-900 dark:text-zinc-100 mb-2">
           Resume
@@ -85,7 +85,7 @@ export default function ResumeForm() {
 
       <div className="space-y-6">
         {hasResume && (
-          <div className="flex items-center gap-3 p-4 border-2 border-zinc-900 dark:border-zinc-100 bg-white dark:bg-black">
+          <div className="flex items-center gap-3 p-4 border-2 border-gray-300 dark:border-gray-700 bg-white dark:bg-black">
             <FileText className="h-5 w-5 text-zinc-900 dark:text-zinc-100" />
             <div className="flex-1">
               <p className="text-sm font-medium text-zinc-900 dark:text-zinc-100">
@@ -105,7 +105,7 @@ export default function ResumeForm() {
           </div>
         )}
 
-        <div className="border-2 border-dashed border-zinc-900 dark:border-zinc-100 p-8 text-center">
+        <div className="border-2 border-dashed border-gray-300 dark:border-gray-700 p-8 text-center">
           <input
             type="file"
             id="resume-upload"

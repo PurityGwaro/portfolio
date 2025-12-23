@@ -40,7 +40,7 @@ export default function TechStack() {
           return (
             <div
               key={category}
-              className="border-2 border-zinc-900 dark:border-zinc-100 p-8 text-black"
+              className="border-2 border-gray-300 dark:border-gray-700 p-8 text-black"
             >
               <div className="flex items-center gap-3 mb-6">
                 <Icon className="h-6 w-6 text-zinc-900 dark:text-zinc-100" />
@@ -52,7 +52,7 @@ export default function TechStack() {
                 {items.map((item) => (
                   <div
                     key={item}
-                    className="border border-zinc-900 dark:border-zinc-100 px-4 py-3 text-center text-sm font-medium uppercase tracking-wider text-zinc-900 dark:text-zinc-100"
+                    className="border border-gray-300 dark:border-gray-700 px-4 py-3 text-center text-sm font-medium uppercase tracking-wider text-zinc-900 dark:text-zinc-100"
                   >
                     {item}
                   </div>

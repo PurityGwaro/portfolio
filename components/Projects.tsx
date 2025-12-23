@@ -28,7 +28,7 @@ export default function Projects({ projects }: ProjectsProps) {
         {projects.map((project) => (
           <div
             key={project.title}
-            className="border-2 border-zinc-900 dark:border-zinc-100 p-8 flex flex-col"
+            className="border-2 border-gray-300 dark:border-gray-700 p-8 flex flex-col"
           >
             <h3 className="text-xl font-bold text-zinc-900 dark:text-zinc-100 mb-3">
               {project.title}
@@ -41,14 +41,14 @@ export default function Projects({ projects }: ProjectsProps) {
               {project.skills.map((skill) => (
                 <span
                   key={skill}
-                  className="border border-zinc-900 dark:border-zinc-100 px-3 py-1 text-xs font-medium uppercase tracking-wider text-zinc-900 dark:text-zinc-100"
+                  className="border border-gray-300 dark:border-gray-700 px-3 py-1 text-xs font-medium uppercase tracking-wider text-zinc-900 dark:text-zinc-100"
                 >
                   {skill}
                 </span>
               ))}
             </div>
 
-            <div className="flex items-center gap-3 pt-4 border-t border-zinc-900 dark:border-zinc-100">
+            <div className="flex items-center gap-3 pt-4 border-t border-gray-300 dark:border-gray-700">
               {project.githubUrl && (
                 <a
                   href={project.githubUrl}

@@ -158,7 +158,7 @@ export default function BlogForm() {
   };
 
   return (
-    <div className="border-2 border-zinc-900 dark:border-zinc-100 p-8 bg-white dark:bg-black">
+    <div className="border-2 border-gray-300 dark:border-gray-700 p-8 bg-white dark:bg-black">
       <div className="flex items-center justify-between mb-6">
         <h2 className="text-2xl font-bold text-zinc-900 dark:text-zinc-100">
           Blog Posts ({blogs.length})
@@ -181,7 +181,7 @@ export default function BlogForm() {
           {blogs.map((blog) => (
             <div
               key={blog.title}
-              className="border-2 border-zinc-900 dark:border-zinc-100 p-4 flex items-start justify-between gap-4 bg-white dark:bg-black"
+              className="border-2 border-gray-300 dark:border-gray-700 p-4 flex items-start justify-between gap-4 bg-white dark:bg-black"
             >
               <div className="flex-1">
                 <h4 className="font-bold text-zinc-900 dark:text-zinc-100 mb-1">
@@ -236,7 +236,7 @@ export default function BlogForm() {
                 id="blog-title"
                 value={formData.title}
                 onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                className="w-full border-2 border-zinc-900 dark:border-zinc-100 bg-white dark:bg-black text-zinc-900 dark:text-zinc-100 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-zinc-900 dark:focus:ring-zinc-100"
+                className="w-full border-2 border-gray-300 dark:border-gray-700 bg-white dark:bg-black text-zinc-900 dark:text-zinc-100 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-zinc-900 dark:focus:ring-zinc-100"
                 required
               />
             </div>
@@ -250,7 +250,7 @@ export default function BlogForm() {
                 value={formData.description}
                 onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                 rows={3}
-                className="w-full border-2 border-zinc-900 dark:border-zinc-100 bg-white dark:bg-black text-zinc-900 dark:text-zinc-100 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-zinc-900 dark:focus:ring-zinc-100"
+                className="w-full border-2 border-gray-300 dark:border-gray-700 bg-white dark:bg-black text-zinc-900 dark:text-zinc-100 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-zinc-900 dark:focus:ring-zinc-100"
                 required
               />
             </div>
@@ -265,7 +265,7 @@ export default function BlogForm() {
                 value={formData.url}
                 onChange={(e) => setFormData({ ...formData, url: e.target.value })}
                 placeholder="https://medium.com/@you/article"
-                className="w-full border-2 border-zinc-900 dark:border-zinc-100 bg-white dark:bg-black text-zinc-900 dark:text-zinc-100 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-zinc-900 dark:focus:ring-zinc-100"
+                className="w-full border-2 border-gray-300 dark:border-gray-700 bg-white dark:bg-black text-zinc-900 dark:text-zinc-100 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-zinc-900 dark:focus:ring-zinc-100"
                 required
               />
             </div>
@@ -281,7 +281,7 @@ export default function BlogForm() {
             <button
               type="button"
               onClick={handleCloseModal}
-              className="px-6 bg-transparent border-2 border-zinc-900 dark:border-zinc-100 text-zinc-900 dark:text-zinc-100 py-3 font-medium uppercase tracking-wider hover:bg-zinc-100 dark:hover:bg-zinc-900 transition-colors cursor-pointer"
+              className="px-6 bg-transparent border-2 border-gray-300 dark:border-gray-700 text-zinc-900 dark:text-zinc-100 py-3 font-medium uppercase tracking-wider hover:bg-zinc-100 dark:hover:bg-zinc-900 transition-colors cursor-pointer"
             >
               Cancel
             </button>

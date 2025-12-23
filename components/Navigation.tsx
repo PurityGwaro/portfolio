@@ -27,7 +27,7 @@ export default function Navigation() {
   }, []);
 
   return (
-    <nav className="sticky top-0 z-50 border-b-2 border-zinc-900 dark:border-zinc-100 bg-white dark:bg-black">
+    <nav className="sticky top-0 z-50 border-b-2 border-gray-300 dark:border-gray-700 bg-white dark:bg-black">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-8 py-6">
         <Link
           href="/"

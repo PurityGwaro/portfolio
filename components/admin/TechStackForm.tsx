@@ -161,7 +161,7 @@ export default function TechStackForm() {
   }, {} as Record<string, Tech[]>);
 
   return (
-    <div className="border-2 border-zinc-900 dark:border-zinc-100 p-8 bg-white dark:bg-black">
+    <div className="border-2 border-gray-300 dark:border-gray-700 p-8 bg-white dark:bg-black">
       <div className="flex items-center justify-between mb-6">
         <h2 className="text-2xl font-bold text-zinc-900 dark:text-zinc-100">
           Technologies ({techStack.length})
@@ -190,7 +190,7 @@ export default function TechStackForm() {
                 {techs.map((tech) => (
                   <div
                     key={tech.name}
-                    className="border-2 border-zinc-900 dark:border-zinc-100 p-3 flex items-center justify-between gap-4 bg-white dark:bg-black"
+                    className="border-2 border-gray-300 dark:border-gray-700 p-3 flex items-center justify-between gap-4 bg-white dark:bg-black"
                   >
                     <span className="text-zinc-900 dark:text-zinc-100">
                       {tech.name}
@@ -235,7 +235,7 @@ export default function TechStackForm() {
                 id="tech-name"
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                className="w-full border-2 border-zinc-900 dark:border-zinc-100 bg-white dark:bg-black text-zinc-900 dark:text-zinc-100 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-zinc-900 dark:focus:ring-zinc-100"
+                className="w-full border-2 border-gray-300 dark:border-gray-700 bg-white dark:bg-black text-zinc-900 dark:text-zinc-100 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-zinc-900 dark:focus:ring-zinc-100"
                 required
               />
             </div>
@@ -250,7 +250,7 @@ export default function TechStackForm() {
                 value={formData.category}
                 onChange={(e) => setFormData({ ...formData, category: e.target.value })}
                 placeholder="e.g., Core Backend, Databases & ORM, Infrastructure & DevOps"
-                className="w-full border-2 border-zinc-900 dark:border-zinc-100 bg-white dark:bg-black text-zinc-900 dark:text-zinc-100 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-zinc-900 dark:focus:ring-zinc-100"
+                className="w-full border-2 border-gray-300 dark:border-gray-700 bg-white dark:bg-black text-zinc-900 dark:text-zinc-100 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-zinc-900 dark:focus:ring-zinc-100"
                 required
               />
             </div>
@@ -266,7 +266,7 @@ export default function TechStackForm() {
             <button
               type="button"
               onClick={handleCloseModal}
-              className="px-6 bg-transparent border-2 border-zinc-900 dark:border-zinc-100 text-zinc-900 dark:text-zinc-100 py-3 font-medium uppercase tracking-wider hover:bg-zinc-100 dark:hover:bg-zinc-900 transition-colors cursor-pointer"
+              className="px-6 bg-transparent border-2 border-gray-300 dark:border-gray-700 text-zinc-900 dark:text-zinc-100 py-3 font-medium uppercase tracking-wider hover:bg-zinc-100 dark:hover:bg-zinc-900 transition-colors cursor-pointer"
             >
               Cancel
             </button>
