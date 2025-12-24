@@ -21,10 +21,18 @@ export function ThemeToggle() {
   }
 
   const currentTheme = theme === 'system' ? systemTheme : theme
+  const handleTheme = () => {
+    console.log('Current theme:', currentTheme, 'Setting to:', currentTheme === "light" ? "dark" : "light");
+    if (currentTheme === "light") {
+      setTheme("dark");
+    } else {
+      setTheme("light");
+    }
+  };
 
   return (
     <button
-      onClick={() => setTheme(currentTheme === 'dark' ? 'light' : 'dark')}
+      onClick={handleTheme}
       className="ml-2 rounded-full p-2 text-zinc-900 hover:bg-zinc-100 dark:text-zinc-100 dark:hover:bg-zinc-900 transition-colors cursor-pointer"
       aria-label="Toggle theme"
     >

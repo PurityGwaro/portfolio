@@ -32,7 +32,7 @@ export default function ConfirmModal({ isOpen, onConfirm, onCancel, title, messa
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 dark:bg-black/70">
       <div
         className="absolute inset-0 cursor-pointer"
         onClick={onCancel}

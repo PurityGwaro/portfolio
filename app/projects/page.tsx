@@ -1,38 +1,54 @@
+'use client';
+
+import { useEffect, useState } from 'react';
 import { ExternalLink, Github } from 'lucide-react';
-import Link from 'next/link';
+import { Project } from '@/components/Projects';
 
-export interface Project {
-  title: string;
-  description: string;
-  skills: string[];
-  githubUrl?: string;
-  liveUrl?: string;
-}
+export default function ProjectsPage() {
+  const [projects, setProjects] = useState<Project[]>([]);
+  const [loading, setLoading] = useState(true);
 
-interface ProjectsProps {
-  projects: Project[];
-}
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const response = await fetch('/api/projects');
+        if (response.ok) {
+          const data = await response.json();
+          setProjects(data);
+        }
+      } catch (error) {
+        console.error('Error fetching projects:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchProjects();
+  }, []);
 
-export default function Projects({ projects }: ProjectsProps) {
-  const displayedProjects = projects.slice(0, 6);
-  const hasMoreProjects = projects.length > 6;
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-white dark:bg-black">
+        <p className="text-zinc-600 dark:text-zinc-400">Loading projects...</p>
+      </div>
+    );
+  }
 
   return (
-    <section id="projects" className="mx-auto max-w-7xl px-8 py-24">
+    <section className="mx-auto max-w-7xl px-8 py-24 min-h-screen bg-white dark:bg-black">
       <div className="text-center mb-16">
-        <h2 className="text-5xl font-bold uppercase tracking-tight text-zinc-900 dark:text-zinc-100">
-          Expertise
-        </h2>
+        <h1 className="text-5xl font-bold uppercase tracking-tight text-zinc-900 dark:text-zinc-100">
+          All Projects
+        </h1>
         <p className="mt-4 text-lg text-zinc-600 dark:text-zinc-400">
-          Turning complex challenges into simple, scalable solutions.
+          A comprehensive showcase of my work and expertise.
         </p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {displayedProjects.map((project) => (
+        {projects.map((project) => (
           <div
             key={project.title}
-            className="border-2 border-gray-300 dark:border-gray-700 p-8 flex flex-col"
+            className="border-2 border-gray-300 dark:border-gray-700 p-8 flex flex-col bg-white dark:bg-black hover:border-gray-400 dark:hover:border-gray-600 transition-colors"
           >
             <h3 className="text-xl font-bold text-zinc-900 dark:text-zinc-100 mb-3">
               {project.title}
@@ -81,14 +97,9 @@ export default function Projects({ projects }: ProjectsProps) {
         ))}
       </div>
 
-      {hasMoreProjects && (
-        <div className="mt-16 text-center">
-          <Link
-            href="/projects"
-            className="inline-block border-2 border-gray-300 dark:border-gray-700 px-8 py-4 text-sm font-medium uppercase tracking-wider text-zinc-900 dark:text-zinc-100 hover:bg-zinc-900 hover:text-white dark:hover:bg-zinc-100 dark:hover:text-black transition-colors"
-          >
-            View All Works
-          </Link>
+      {projects.length === 0 && (
+        <div className="text-center py-16">
+          <p className="text-zinc-600 dark:text-zinc-400">No projects found.</p>
         </div>
       )}
     </section>
