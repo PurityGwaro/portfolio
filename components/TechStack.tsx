@@ -10,7 +10,7 @@ interface Tech {
 // Define a proper type for the icon mapping
 type IconType = React.ComponentType<{ className: string }>;
 const categoryIcons: Record<string, IconType> = {
-  'Core Backend': Code,
+  'Core Stack': Code,
   'Databases & ORM': Database,
   'Infrastructure & DevOps': Cloud,
   'Developer Tools': Wrench,
