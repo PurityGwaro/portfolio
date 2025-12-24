@@ -158,14 +158,14 @@ export default function BlogForm() {
   };
 
   return (
-    <div className="border-2 border-gray-300 dark:border-gray-700 p-8 bg-white dark:bg-black">
+    <div className="border-2 border-gray-300 p-8 bg-white">
       <div className="flex items-center justify-between mb-6">
-        <h2 className="text-2xl font-bold text-zinc-900 dark:text-zinc-100">
+        <h2 className="text-2xl font-bold text-zinc-900">
           Blog Posts ({blogs.length})
         </h2>
         <button
           onClick={() => setIsModalOpen(true)}
-          className="flex items-center gap-2 bg-zinc-900 dark:bg-zinc-100 text-zinc-100 dark:text-zinc-900 px-6 py-3 font-medium uppercase tracking-wider hover:bg-zinc-800 dark:hover:bg-zinc-200 transition-colors cursor-pointer"
+          className="flex items-center gap-2 bg-zinc-900 text-white px-6 py-3 font-medium uppercase tracking-wider hover:bg-zinc-700 transition-colors cursor-pointer"
         >
           <Plus className="h-4 w-4" />
           Add Blog Post
@@ -173,28 +173,28 @@ export default function BlogForm() {
       </div>
 
       {loading ? (
-        <p className="text-zinc-600 dark:text-zinc-400">Loading...</p>
+        <p className="text-zinc-600">Loading...</p>
       ) : blogs.length === 0 ? (
-        <p className="text-zinc-600 dark:text-zinc-400">No blog posts yet.</p>
+        <p className="text-zinc-600">No blog posts yet.</p>
       ) : (
         <div className="space-y-4">
           {blogs.map((blog) => (
             <div
               key={blog.title}
-              className="border-2 border-gray-300 dark:border-gray-700 p-4 flex items-start justify-between gap-4 bg-white dark:bg-black"
+              className="border-2 border-gray-300 p-4 flex items-start justify-between gap-4 bg-white"
             >
               <div className="flex-1">
-                <h4 className="font-bold text-zinc-900 dark:text-zinc-100 mb-1">
+                <h4 className="font-bold text-zinc-900 mb-1">
                   {blog.title}
                 </h4>
-                <p className="text-sm text-zinc-600 dark:text-zinc-400 mb-2">
+                <p className="text-sm text-zinc-600 mb-2">
                   {blog.description}
                 </p>
                 <a
                   href={blog.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-xs text-blue-600 dark:text-blue-400 hover:underline cursor-pointer"
+                  className="text-xs text-blue-600 hover:underline cursor-pointer"
                 >
                   {blog.url}
                 </a>
@@ -202,14 +202,14 @@ export default function BlogForm() {
               <div className="flex gap-2">
                 <button
                   onClick={() => handleEdit(blog)}
-                  className="p-2 text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors cursor-pointer"
+                  className="p-2 text-blue-600 hover:bg-blue-50 transition-colors cursor-pointer"
                   title="Edit blog post"
                 >
                   <Edit className="h-5 w-5" />
                 </button>
                 <button
                   onClick={() => handleDeleteClick(blog.title)}
-                  className="p-2 text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors cursor-pointer"
+                  className="p-2 text-red-600 hover:bg-red-50 transition-colors cursor-pointer"
                   title="Delete blog post"
                 >
                   <Trash2 className="h-5 w-5" />
@@ -228,7 +228,7 @@ export default function BlogForm() {
         <form onSubmit={handleSubmit}>
           <div className="space-y-6">
             <div>
-              <label htmlFor="blog-title" className="block text-sm font-medium text-zinc-900 dark:text-zinc-100 mb-2">
+              <label htmlFor="blog-title" className="block text-sm font-medium text-zinc-900 mb-2">
                 Title *
               </label>
               <input
@@ -236,13 +236,13 @@ export default function BlogForm() {
                 id="blog-title"
                 value={formData.title}
                 onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                className="w-full border-2 border-gray-300 dark:border-gray-700 bg-white dark:bg-black text-zinc-900 dark:text-zinc-100 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-zinc-900 dark:focus:ring-zinc-100"
+                className="w-full border-2 border-gray-300 bg-white text-zinc-900 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-zinc-900"
                 required
               />
             </div>
 
             <div>
-              <label htmlFor="blog-description" className="block text-sm font-medium text-zinc-900 dark:text-zinc-100 mb-2">
+              <label htmlFor="blog-description" className="block text-sm font-medium text-zinc-900 mb-2">
                 Short Description *
               </label>
               <textarea
@@ -250,13 +250,13 @@ export default function BlogForm() {
                 value={formData.description}
                 onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                 rows={3}
-                className="w-full border-2 border-gray-300 dark:border-gray-700 bg-white dark:bg-black text-zinc-900 dark:text-zinc-100 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-zinc-900 dark:focus:ring-zinc-100"
+                className="w-full border-2 border-gray-300 bg-white text-zinc-900 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-zinc-900"
                 required
               />
             </div>
 
             <div>
-              <label htmlFor="blog-url" className="block text-sm font-medium text-zinc-900 dark:text-zinc-100 mb-2">
+              <label htmlFor="blog-url" className="block text-sm font-medium text-zinc-900 mb-2">
                 Article URL *
               </label>
               <input
@@ -265,7 +265,7 @@ export default function BlogForm() {
                 value={formData.url}
                 onChange={(e) => setFormData({ ...formData, url: e.target.value })}
                 placeholder="https://medium.com/@you/article"
-                className="w-full border-2 border-gray-300 dark:border-gray-700 bg-white dark:bg-black text-zinc-900 dark:text-zinc-100 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-zinc-900 dark:focus:ring-zinc-100"
+                className="w-full border-2 border-gray-300 bg-white text-zinc-900 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-zinc-900"
                 required
               />
             </div>
@@ -274,14 +274,14 @@ export default function BlogForm() {
           <div className="flex gap-4 mt-6">
             <button
               type="submit"
-              className="flex-1 bg-zinc-900 dark:bg-zinc-100 text-zinc-100 dark:text-zinc-900 py-3 font-medium uppercase tracking-wider hover:bg-zinc-800 dark:hover:bg-zinc-200 transition-colors cursor-pointer"
+              className="flex-1 bg-zinc-900 text-white py-3 font-medium uppercase tracking-wider hover:bg-zinc-700 transition-colors cursor-pointer"
             >
               {editingBlog ? 'Update Blog Post' : 'Add Blog Post'}
             </button>
             <button
               type="button"
               onClick={handleCloseModal}
-              className="px-6 bg-transparent border-2 border-gray-300 dark:border-gray-700 text-zinc-900 dark:text-zinc-100 py-3 font-medium uppercase tracking-wider hover:bg-zinc-100 dark:hover:bg-zinc-900 transition-colors cursor-pointer"
+              className="px-6 bg-transparent border-2 border-gray-300 text-zinc-900 py-3 font-medium uppercase tracking-wider hover:bg-zinc-100 transition-colors cursor-pointer"
             >
               Cancel
             </button>

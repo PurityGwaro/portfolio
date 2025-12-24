@@ -223,14 +223,14 @@ export default function TechStackForm() {
   const categories = Array.from(new Set(techStack.map(t => t.category))).sort();
 
   return (
-    <div className="border-2 border-gray-300 dark:border-gray-700 p-8 bg-white dark:bg-black">
+    <div className="border-2 border-gray-300 p-8 bg-white">
       <div className="flex items-center justify-between mb-6">
-        <h2 className="text-2xl font-bold text-zinc-900 dark:text-zinc-100">
+        <h2 className="text-2xl font-bold text-zinc-900">
           Technologies ({techStack.length})
         </h2>
         <button
           onClick={() => setIsModalOpen(true)}
-          className="flex items-center gap-2 bg-zinc-900 dark:bg-zinc-100 text-zinc-100 dark:text-zinc-900 px-6 py-3 font-medium uppercase tracking-wider hover:bg-zinc-800 dark:hover:bg-zinc-200 transition-colors cursor-pointer"
+          className="flex items-center gap-2 bg-zinc-900 text-white px-6 py-3 font-medium uppercase tracking-wider hover:bg-zinc-700 transition-colors cursor-pointer"
         >
           <Plus className="h-4 w-4" />
           Add Technology
@@ -238,20 +238,20 @@ export default function TechStackForm() {
       </div>
 
       {loading ? (
-        <p className="text-zinc-600 dark:text-zinc-400">Loading...</p>
+        <p className="text-zinc-600">Loading...</p>
       ) : techStack.length === 0 ? (
-        <p className="text-zinc-600 dark:text-zinc-400">No technologies yet.</p>
+        <p className="text-zinc-600">No technologies yet.</p>
       ) : (
         <div className="space-y-6">
           {Object.entries(groupedTech).map(([category, techs]) => (
             <div key={category}>
               <div className="flex items-center justify-between mb-3">
-                <h4 className="font-bold text-zinc-900 dark:text-zinc-100">
+                <h4 className="font-bold text-zinc-900">
                   {category}
                 </h4>
                 <button
                   onClick={() => handleEditCategory(category)}
-                  className="p-1 text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors cursor-pointer"
+                  className="p-1 text-zinc-600 hover:text-zinc-900 transition-colors cursor-pointer"
                   title="Edit category name"
                 >
                   <Edit className="h-3 w-3" />
@@ -261,22 +261,22 @@ export default function TechStackForm() {
                 {techs.map((tech) => (
                   <div
                     key={tech.name}
-                    className="border-2 border-gray-300 dark:border-gray-700 p-3 flex items-center justify-between gap-4 bg-white dark:bg-black"
+                    className="border-2 border-gray-300 p-3 flex items-center justify-between gap-4 bg-white"
                   >
-                    <span className="text-zinc-900 dark:text-zinc-100">
+                    <span className="text-zinc-900">
                       {tech.name}
                     </span>
                     <div className="flex gap-2">
                       <button
                         onClick={() => handleEdit(tech)}
-                        className="p-2 text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors cursor-pointer"
+                        className="p-2 text-blue-600 hover:bg-blue-50 transition-colors cursor-pointer"
                         title="Edit technology"
                       >
                         <Edit className="h-4 w-4" />
                       </button>
                       <button
                         onClick={() => handleDeleteClick(tech.name)}
-                        className="p-2 text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors cursor-pointer"
+                        className="p-2 text-red-600 hover:bg-red-50 transition-colors cursor-pointer"
                         title="Delete technology"
                       >
                         <Trash2 className="h-4 w-4" />
@@ -298,7 +298,7 @@ export default function TechStackForm() {
         <form onSubmit={handleSubmit}>
           <div className="space-y-6">
             <div>
-              <label htmlFor="tech-name" className="block text-sm font-medium text-zinc-900 dark:text-zinc-100 mb-2">
+              <label htmlFor="tech-name" className="block text-sm font-medium text-zinc-900 mb-2">
                 Technology Name *
               </label>
               <input
@@ -306,13 +306,13 @@ export default function TechStackForm() {
                 id="tech-name"
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                className="w-full border-2 border-gray-300 dark:border-gray-700 bg-white dark:bg-black text-zinc-900 dark:text-zinc-100 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-zinc-900 dark:focus:ring-zinc-100"
+                className="w-full border-2 border-gray-300 bg-white text-zinc-900 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-zinc-900"
                 required
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-zinc-900 dark:text-zinc-100 mb-2">
+              <label className="block text-sm font-medium text-zinc-900 mb-2">
                 Category *
               </label>
 
@@ -321,7 +321,7 @@ export default function TechStackForm() {
                   <select
                     value={formData.category}
                     onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                    className="w-full border-2 border-gray-300 dark:border-gray-700 bg-white dark:bg-black text-zinc-900 dark:text-zinc-100 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-zinc-900 dark:focus:ring-zinc-100"
+                    className="w-full border-2 border-gray-300 bg-white text-zinc-900 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-zinc-900"
                     required={!useCustomCategory}
                   >
                     <option value="">Select a category</option>
@@ -334,7 +334,7 @@ export default function TechStackForm() {
                   <button
                     type="button"
                     onClick={() => setUseCustomCategory(true)}
-                    className="mt-2 text-sm text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 underline"
+                    className="mt-2 text-sm text-zinc-600 hover:text-zinc-900 underline"
                   >
                     + Create new category
                   </button>
@@ -346,7 +346,7 @@ export default function TechStackForm() {
                     value={formData.newCategory}
                     onChange={(e) => setFormData({ ...formData, newCategory: e.target.value })}
                     placeholder="e.g., Core Backend, Databases & ORM"
-                    className="w-full border-2 border-gray-300 dark:border-gray-700 bg-white dark:bg-black text-zinc-900 dark:text-zinc-100 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-zinc-900 dark:focus:ring-zinc-100"
+                    className="w-full border-2 border-gray-300 bg-white text-zinc-900 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-zinc-900"
                     required={useCustomCategory}
                   />
                   {categories.length > 0 && (
@@ -356,7 +356,7 @@ export default function TechStackForm() {
                         setUseCustomCategory(false);
                         setFormData({ ...formData, newCategory: '' });
                       }}
-                      className="mt-2 text-sm text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 underline"
+                      className="mt-2 text-sm text-zinc-600 hover:text-zinc-900 underline"
                     >
                       Choose from existing categories
                     </button>
@@ -369,14 +369,14 @@ export default function TechStackForm() {
           <div className="flex gap-4 mt-6">
             <button
               type="submit"
-              className="flex-1 bg-zinc-900 dark:bg-zinc-100 text-zinc-100 dark:text-zinc-900 py-3 font-medium uppercase tracking-wider hover:bg-zinc-800 dark:hover:bg-zinc-200 transition-colors cursor-pointer"
+              className="flex-1 bg-zinc-900 text-white py-3 font-medium uppercase tracking-wider hover:bg-zinc-700 transition-colors cursor-pointer"
             >
               {editingTech ? 'Update Technology' : 'Add Technology'}
             </button>
             <button
               type="button"
               onClick={handleCloseModal}
-              className="px-6 bg-transparent border-2 border-gray-300 dark:border-gray-700 text-zinc-900 dark:text-zinc-100 py-3 font-medium uppercase tracking-wider hover:bg-zinc-100 dark:hover:bg-zinc-900 transition-colors cursor-pointer"
+              className="px-6 bg-transparent border-2 border-gray-300 text-zinc-900 py-3 font-medium uppercase tracking-wider hover:bg-zinc-100 transition-colors cursor-pointer"
             >
               Cancel
             </button>
@@ -391,16 +391,16 @@ export default function TechStackForm() {
       >
         <div className="space-y-6">
           <div>
-            <label className="block text-sm font-medium text-zinc-900 dark:text-zinc-100 mb-2">
+            <label className="block text-sm font-medium text-zinc-900 mb-2">
               Category Name *
             </label>
             <input
               type="text"
               value={editingCategory.new}
               onChange={(e) => setEditingCategory({ ...editingCategory, new: e.target.value })}
-              className="w-full border-2 border-gray-300 dark:border-gray-700 bg-white dark:bg-black text-zinc-900 dark:text-zinc-100 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-zinc-900 dark:focus:ring-zinc-100"
+              className="w-full border-2 border-gray-300 bg-white text-zinc-900 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-zinc-900"
             />
-            <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
+            <p className="mt-2 text-sm text-zinc-600">
               This will update the category for all technologies in &ldquo;{editingCategory.old}&rdquo;
             </p>
           </div>
@@ -408,13 +408,13 @@ export default function TechStackForm() {
           <div className="flex gap-4">
             <button
               onClick={handleCategoryUpdate}
-              className="flex-1 bg-zinc-900 dark:bg-zinc-100 text-zinc-100 dark:text-zinc-900 py-3 font-medium uppercase tracking-wider hover:bg-zinc-800 dark:hover:bg-zinc-200 transition-colors cursor-pointer"
+              className="flex-1 bg-zinc-900 text-white py-3 font-medium uppercase tracking-wider hover:bg-zinc-700 transition-colors cursor-pointer"
             >
               Update Category
             </button>
             <button
               onClick={() => setIsCategoryModalOpen(false)}
-              className="px-6 bg-transparent border-2 border-gray-300 dark:border-gray-700 text-zinc-900 dark:text-zinc-100 py-3 font-medium uppercase tracking-wider hover:bg-zinc-100 dark:hover:bg-zinc-900 transition-colors cursor-pointer"
+              className="px-6 bg-transparent border-2 border-gray-300 text-zinc-900 py-3 font-medium uppercase tracking-wider hover:bg-zinc-100 transition-colors cursor-pointer"
             >
               Cancel
             </button>

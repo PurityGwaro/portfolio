@@ -3,7 +3,6 @@
 import Link from 'next/link';
 import { useAuth } from './AuthProvider';
 import { LogOut } from 'lucide-react';
-import { ThemeToggle } from './ThemeToggle';
 import { useState, useEffect } from 'react';
 
 export default function Navigation() {
@@ -27,31 +26,31 @@ export default function Navigation() {
   }, []);
 
   return (
-    <nav className="sticky top-0 z-50 border-b-2 border-gray-300 dark:border-gray-700 bg-white dark:bg-black">
+    <nav className="sticky top-0 z-50 border-b-2 border-gray-300 bg-white">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-8 py-6">
         <Link
           href="/"
-          className="text-base font-bold text-zinc-900 dark:text-zinc-100 hover:opacity-70 transition-opacity"
+          className="text-base font-bold text-zinc-900 hover:opacity-70 transition-opacity"
         >
           puritygwaro.dev
         </Link>
 
-        <div className="flex items-center gap-8" suppressHydrationWarning>
+        <div className="flex items-center gap-8">
           <Link
             href="/#projects"
-            className="text-sm font-medium uppercase tracking-wider text-zinc-900 dark:text-zinc-100 hover:opacity-70 transition-opacity cursor-pointer"
+            className="text-sm font-medium uppercase tracking-wider text-zinc-900 hover:opacity-70 transition-opacity cursor-pointer"
           >
             Projects
           </Link>
           <Link
             href="/#tech"
-            className="text-sm font-medium uppercase tracking-wider text-zinc-900 dark:text-zinc-100 hover:opacity-70 transition-opacity cursor-pointer"
+            className="text-sm font-medium uppercase tracking-wider text-zinc-900 hover:opacity-70 transition-opacity cursor-pointer"
           >
             Tech
           </Link>
           <Link
             href="/#blog"
-            className="text-sm font-medium uppercase tracking-wider text-zinc-900 dark:text-zinc-100 hover:opacity-70 transition-opacity cursor-pointer"
+            className="text-sm font-medium uppercase tracking-wider text-zinc-900 hover:opacity-70 transition-opacity cursor-pointer"
           >
             Blog
           </Link>
@@ -59,7 +58,7 @@ export default function Navigation() {
             <a
               href="/api/resume"
               download
-              className="text-sm font-medium uppercase tracking-wider text-zinc-900 dark:text-zinc-100 hover:opacity-70 transition-opacity cursor-pointer"
+              className="text-sm font-medium uppercase tracking-wider text-zinc-900 hover:opacity-70 transition-opacity cursor-pointer"
             >
               Resume
             </a>
@@ -69,21 +68,19 @@ export default function Navigation() {
             <>
               <Link
                 href="/admin"
-                className="text-sm font-medium uppercase tracking-wider text-zinc-900 dark:text-zinc-100 hover:opacity-70 transition-opacity cursor-pointer"
+                className="text-sm font-medium uppercase tracking-wider text-zinc-900 hover:opacity-70 transition-opacity cursor-pointer"
               >
                 Admin
               </Link>
               <button
                 onClick={logout}
-                className="flex items-center gap-2 text-sm font-medium uppercase tracking-wider text-zinc-900 dark:text-zinc-100 hover:opacity-70 transition-opacity cursor-pointer"
+                className="flex items-center gap-2 text-sm font-medium uppercase tracking-wider text-zinc-900 hover:opacity-70 transition-opacity cursor-pointer"
               >
                 <LogOut className="h-4 w-4" />
                 Logout
               </button>
             </>
           )}
-
-          <ThemeToggle />
         </div>
       </div>
     </nav>

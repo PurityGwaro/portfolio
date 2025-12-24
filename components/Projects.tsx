@@ -20,10 +20,10 @@ export default function Projects({ projects }: ProjectsProps) {
   return (
     <section id="projects" className="mx-auto max-w-7xl px-8 py-24">
       <div className="text-center mb-16">
-        <h2 className="text-5xl font-bold uppercase tracking-tight text-zinc-900 dark:text-zinc-100">
+        <h2 className="text-5xl font-bold uppercase tracking-tight text-zinc-900">
           Expertise
         </h2>
-        <p className="mt-4 text-lg text-zinc-600 dark:text-zinc-400">
+        <p className="mt-4 text-lg text-zinc-600">
           Turning complex challenges into simple, scalable solutions.
         </p>
       </div>
@@ -32,12 +32,12 @@ export default function Projects({ projects }: ProjectsProps) {
         {displayedProjects.map((project) => (
           <div
             key={project.title}
-            className="border-2 border-gray-300 dark:border-gray-700 p-8 flex flex-col"
+            className="border-2 border-gray-300 p-8 flex flex-col"
           >
-            <h3 className="text-xl font-bold text-zinc-900 dark:text-zinc-100 mb-3">
+            <h3 className="text-xl font-bold text-zinc-900 mb-3">
               {project.title}
             </h3>
-            <p className="text-sm text-zinc-600 dark:text-zinc-400 mb-6 flex-1">
+            <p className="text-sm text-zinc-600 mb-6 flex-1">
               {project.description}
             </p>
 
@@ -45,20 +45,20 @@ export default function Projects({ projects }: ProjectsProps) {
               {project.skills.map((skill) => (
                 <span
                   key={skill}
-                  className="border border-gray-300 dark:border-gray-700 px-3 py-1 text-xs font-medium uppercase tracking-wider text-zinc-900 dark:text-zinc-100"
+                  className="border border-gray-300 px-3 py-1 text-xs font-medium uppercase tracking-wider text-zinc-900"
                 >
                   {skill}
                 </span>
               ))}
             </div>
 
-            <div className="flex items-center gap-3 pt-4 border-t border-gray-300 dark:border-gray-700">
+            <div className="flex items-center gap-3 pt-4 border-t border-gray-300">
               {project.githubUrl && (
                 <a
                   href={project.githubUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2 text-sm font-medium uppercase tracking-wider text-zinc-900 dark:text-zinc-100 hover:opacity-70 transition-opacity"
+                  className="flex items-center gap-2 text-sm font-medium uppercase tracking-wider text-zinc-900 hover:opacity-70 transition-opacity"
                 >
                   <Github className="h-4 w-4" />
                   View Project
@@ -70,7 +70,7 @@ export default function Projects({ projects }: ProjectsProps) {
                   href={project.liveUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2 text-sm font-medium uppercase tracking-wider text-zinc-900 dark:text-zinc-100 hover:opacity-70 transition-opacity"
+                  className="flex items-center gap-2 text-sm font-medium uppercase tracking-wider text-zinc-900 hover:opacity-70 transition-opacity"
                 >
                   Live Demo
                   <ExternalLink className="h-3 w-3" />
@@ -85,7 +85,7 @@ export default function Projects({ projects }: ProjectsProps) {
         <div className="mt-16 text-center">
           <Link
             href="/projects"
-            className="inline-block border-2 border-gray-300 dark:border-gray-700 px-8 py-4 text-sm font-medium uppercase tracking-wider text-zinc-900 dark:text-zinc-100 hover:bg-zinc-900 hover:text-white dark:hover:bg-zinc-100 dark:hover:text-black transition-colors"
+            className="inline-block border-2 border-gray-300 px-8 py-4 text-sm font-medium uppercase tracking-wider text-zinc-900 hover:bg-zinc-900 hover:text-white transition-colors"
           >
             View All Works
           </Link>

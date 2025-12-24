@@ -18,10 +18,10 @@ export default function Blogs({ posts }: BlogsProps) {
   return (
     <section id="blog" className="mx-auto max-w-7xl px-8 py-24">
       <div className="text-center mb-16">
-        <h2 className="text-5xl font-bold uppercase tracking-tight text-zinc-900 dark:text-zinc-100">
+        <h2 className="text-5xl font-bold uppercase tracking-tight text-zinc-900">
           Blog
         </h2>
-        <p className="mt-4 text-lg text-zinc-600 dark:text-zinc-400">
+        <p className="mt-4 text-lg text-zinc-600">
           Thoughts and insights on software development.
         </p>
       </div>
@@ -33,15 +33,15 @@ export default function Blogs({ posts }: BlogsProps) {
             href={post.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="border-2 border-gray-300 dark:border-gray-700 p-8 hover:bg-zinc-100 dark:hover:bg-zinc-900 transition-colors group"
+            className="border-2 border-gray-300 p-8 hover:bg-zinc-100 transition-colors group"
           >
-            <h3 className="text-xl font-bold text-zinc-900 dark:text-zinc-100 mb-3 group-hover:opacity-70 transition-opacity">
+            <h3 className="text-xl font-bold text-zinc-900 mb-3 group-hover:opacity-70 transition-opacity">
               {post.title}
             </h3>
-            <p className="text-sm text-zinc-600 dark:text-zinc-400 mb-6">
+            <p className="text-sm text-zinc-600 mb-6">
               {post.description}
             </p>
-            <div className="flex items-center gap-2 text-sm font-medium uppercase tracking-wider text-zinc-900 dark:text-zinc-100">
+            <div className="flex items-center gap-2 text-sm font-medium uppercase tracking-wider text-zinc-900">
               Read More
               <ExternalLink className="h-3 w-3" />
             </div>

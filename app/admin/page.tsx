@@ -27,14 +27,14 @@ export default function AdminPage() {
 
   if (!isAuthenticated) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-white dark:bg-black px-6">
+      <div className="min-h-screen flex items-center justify-center bg-white px-6">
         <div className="w-full max-w-md">
-          <h1 className="text-3xl font-bold text-zinc-900 dark:text-zinc-100 mb-8 text-center">
+          <h1 className="text-3xl font-bold text-zinc-900 mb-8 text-center">
             Admin Login
           </h1>
-          <form onSubmit={handleLogin} className="border-2 border-gray-300 dark:border-gray-700 p-8 bg-white dark:bg-black">
+          <form onSubmit={handleLogin} className="border-2 border-gray-300 p-8 bg-white">
             <div className="mb-6">
-              <label htmlFor="password" className="block text-sm font-medium text-zinc-900 dark:text-zinc-100 mb-2">
+              <label htmlFor="password" className="block text-sm font-medium text-zinc-900 mb-2">
                 Password
               </label>
               <input
@@ -42,16 +42,16 @@ export default function AdminPage() {
                 id="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full border-2 border-gray-300 dark:border-gray-700 bg-white dark:bg-black text-zinc-900 dark:text-zinc-100 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-gray-400 dark:focus:ring-gray-600"
+                className="w-full border-2 border-gray-300 bg-white text-zinc-900 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-zinc-600"
                 required
               />
             </div>
             {error && (
-              <p className="text-red-600 dark:text-red-400 text-sm mb-4">{error}</p>
+              <p className="text-red-600 text-sm mb-4">{error}</p>
             )}
             <button
               type="submit"
-              className="w-full bg-zinc-900 dark:bg-zinc-100 text-zinc-100 dark:text-zinc-900 py-3 font-medium uppercase tracking-wider hover:bg-zinc-800 dark:hover:bg-zinc-200 transition-colors cursor-pointer"
+              className="w-full bg-zinc-900 text-white py-3 font-medium uppercase tracking-wider hover:bg-zinc-700 transition-colors cursor-pointer"
             >
               Login
             </button>
@@ -62,23 +62,23 @@ export default function AdminPage() {
   }
 
   return (
-    <div className="mx-auto max-w-6xl px-6 py-16 bg-white dark:bg-black min-h-screen">
+    <div className="mx-auto max-w-6xl px-6 py-16 bg-white min-h-screen">
       <div className="mb-12">
-        <h1 className="text-3xl font-bold text-zinc-900 dark:text-zinc-100 mb-2">
+        <h1 className="text-3xl font-bold text-zinc-900 mb-2">
           Admin Dashboard
         </h1>
-        <p className="text-zinc-600 dark:text-zinc-400">
+        <p className="text-zinc-600">
           Manage your portfolio content
         </p>
       </div>
 
-      <div className="flex gap-4 mb-8 border-b-2 border-gray-300 dark:border-gray-700">
+      <div className="flex gap-4 mb-8 border-b-2 border-gray-300">
         <button
           onClick={() => setActiveTab('projects')}
           className={`px-6 py-3 font-medium uppercase tracking-wider transition-colors cursor-pointer ${
             activeTab === 'projects'
-              ? 'bg-white dark:bg-black text-zinc-900 dark:text-zinc-100 border-2 border-gray-300 dark:border-gray-700 border-b-0'
-              : 'text-zinc-900 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-900'
+              ? 'bg-white text-zinc-900 border-2 border-gray-300 border-b-0'
+              : 'text-zinc-600 hover:bg-zinc-100'
           }`}
         >
           Projects
@@ -87,8 +87,8 @@ export default function AdminPage() {
           onClick={() => setActiveTab('blogs')}
           className={`px-6 py-3 font-medium uppercase tracking-wider transition-colors cursor-pointer ${
             activeTab === 'blogs'
-              ? 'bg-white dark:bg-black text-zinc-900 dark:text-zinc-100 border-2 border-gray-300 dark:border-gray-700 border-b-0'
-              : 'text-zinc-900 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-900'
+              ? 'bg-white text-zinc-900 border-2 border-gray-300 border-b-0'
+              : 'text-zinc-600 hover:bg-zinc-100'
           }`}
         >
           Blog Posts
@@ -97,8 +97,8 @@ export default function AdminPage() {
           onClick={() => setActiveTab('tech')}
           className={`px-6 py-3 font-medium uppercase tracking-wider transition-colors cursor-pointer ${
             activeTab === 'tech'
-              ? 'bg-white dark:bg-black text-zinc-900 dark:text-zinc-100 border-2 border-gray-300 dark:border-gray-700 border-b-0'
-              : 'text-zinc-900 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-900'
+              ? 'bg-white text-zinc-900 border-2 border-gray-300 border-b-0'
+              : 'text-zinc-600 hover:bg-zinc-100'
           }`}
         >
           Tech Stack
@@ -107,8 +107,8 @@ export default function AdminPage() {
           onClick={() => setActiveTab('resume')}
           className={`px-6 py-3 font-medium uppercase tracking-wider transition-colors cursor-pointer ${
             activeTab === 'resume'
-              ? 'bg-white dark:bg-black text-zinc-900 dark:text-zinc-100 border-2 border-gray-300 dark:border-gray-700 border-b-0'
-              : 'text-zinc-900 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-900'
+              ? 'bg-white text-zinc-900 border-2 border-gray-300 border-b-0'
+              : 'text-zinc-600 hover:bg-zinc-100'
           }`}
         >
           Resume

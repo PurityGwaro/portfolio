@@ -29,7 +29,7 @@ export default function TechStack() {
   return (
     <section id="tech" className="mx-auto max-w-7xl px-8 py-24">
       <div className="text-center mb-16">
-        <h2 className="text-5xl font-bold uppercase tracking-tight dark:text-zinc-100 text-black">
+        <h2 className="text-5xl font-bold uppercase tracking-tight text-black">
           Tech Stack
         </h2>
       </div>
@@ -40,11 +40,11 @@ export default function TechStack() {
           return (
             <div
               key={category}
-              className="border-2 border-gray-300 dark:border-gray-700 p-8 text-black"
+              className="border-2 border-gray-300 p-8 text-black"
             >
               <div className="flex items-center gap-3 mb-6">
-                <Icon className="h-6 w-6 text-zinc-900 dark:text-zinc-100" />
-                <h3 className="text-xl font-bold text-zinc-900 dark:text-zinc-100">
+                <Icon className="h-6 w-6 text-zinc-900" />
+                <h3 className="text-xl font-bold text-zinc-900">
                   {category}
                 </h3>
               </div>
@@ -52,7 +52,7 @@ export default function TechStack() {
                 {items.map((item) => (
                   <div
                     key={item}
-                    className="border border-gray-300 dark:border-gray-700 px-4 py-3 text-center text-sm font-medium uppercase tracking-wider text-zinc-900 dark:text-zinc-100"
+                    className="border border-gray-300 px-4 py-3 text-center text-sm font-medium uppercase tracking-wider text-zinc-900"
                   >
                     {item}
                   </div>

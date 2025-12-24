@@ -180,14 +180,14 @@ export default function ProjectForm() {
   };
 
   return (
-    <div className="border-2 border-gray-300 dark:border-gray-700 p-8 bg-white dark:bg-black">
+    <div className="border-2 border-gray-300 p-8 bg-white">
       <div className="flex items-center justify-between mb-6">
-        <h2 className="text-2xl font-bold text-zinc-900 dark:text-zinc-100">
+        <h2 className="text-2xl font-bold text-zinc-900">
           Projects ({projects.length})
         </h2>
         <button
           onClick={() => setIsModalOpen(true)}
-          className="flex items-center gap-2 bg-zinc-900 dark:bg-zinc-100 text-zinc-100 dark:text-zinc-900 px-6 py-3 font-medium uppercase tracking-wider hover:bg-zinc-800 dark:hover:bg-zinc-200 transition-colors cursor-pointer"
+          className="flex items-center gap-2 bg-zinc-900 text-white px-6 py-3 font-medium uppercase tracking-wider hover:bg-zinc-700 transition-colors cursor-pointer"
         >
           <Plus className="h-4 w-4" />
           Add Project
@@ -195,28 +195,28 @@ export default function ProjectForm() {
       </div>
 
       {loading ? (
-        <p className="text-zinc-600 dark:text-zinc-400">Loading...</p>
+        <p className="text-zinc-600">Loading...</p>
       ) : projects.length === 0 ? (
-        <p className="text-zinc-600 dark:text-zinc-400">No projects yet.</p>
+        <p className="text-zinc-600">No projects yet.</p>
       ) : (
         <div className="space-y-4">
           {projects.map((project) => (
             <div
               key={project.title}
-              className="border-2 border-gray-300 dark:border-gray-700 p-4 flex items-start justify-between gap-4 bg-white dark:bg-black"
+              className="border-2 border-gray-300 p-4 flex items-start justify-between gap-4 bg-white"
             >
               <div className="flex-1">
-                <h4 className="font-bold text-zinc-900 dark:text-zinc-100 mb-1">
+                <h4 className="font-bold text-zinc-900 mb-1">
                   {project.title}
                 </h4>
-                <p className="text-sm text-zinc-600 dark:text-zinc-400 mb-2">
+                <p className="text-sm text-zinc-600 mb-2">
                   {project.description}
                 </p>
                 <div className="flex flex-wrap gap-2">
                   {project.skills.map((skill) => (
                     <span
                       key={skill}
-                      className="text-xs border border-gray-300 dark:border-gray-700 px-2 py-1 text-zinc-900 dark:text-zinc-100"
+                      className="text-xs border border-gray-300 px-2 py-1 text-zinc-900"
                     >
                       {skill}
                     </span>
@@ -226,14 +226,14 @@ export default function ProjectForm() {
               <div className="flex gap-2">
                 <button
                   onClick={() => handleEdit(project)}
-                  className="p-2 text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors cursor-pointer"
+                  className="p-2 text-blue-600 hover:bg-blue-50 transition-colors cursor-pointer"
                   title="Edit project"
                 >
                   <Edit className="h-5 w-5" />
                 </button>
                 <button
                   onClick={() => handleDeleteClick(project.title)}
-                  className="p-2 text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors cursor-pointer"
+                  className="p-2 text-red-600 hover:bg-red-50 transition-colors cursor-pointer"
                   title="Delete project"
                 >
                   <Trash2 className="h-5 w-5" />
@@ -252,7 +252,7 @@ export default function ProjectForm() {
         <form onSubmit={handleSubmit}>
           <div className="space-y-6">
             <div>
-              <label htmlFor="title" className="block text-sm font-medium text-zinc-900 dark:text-zinc-100 mb-2">
+              <label htmlFor="title" className="block text-sm font-medium text-zinc-900 mb-2">
                 Title *
               </label>
               <input
@@ -260,13 +260,13 @@ export default function ProjectForm() {
                 id="title"
                 value={formData.title}
                 onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                className="w-full border-2 border-gray-300 dark:border-gray-700 bg-white dark:bg-black text-zinc-900 dark:text-zinc-100 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-zinc-900 dark:focus:ring-zinc-100"
+                className="w-full border-2 border-gray-300 bg-white text-zinc-900 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-zinc-900"
                 required
               />
             </div>
 
             <div>
-              <label htmlFor="description" className="block text-sm font-medium text-zinc-900 dark:text-zinc-100 mb-2">
+              <label htmlFor="description" className="block text-sm font-medium text-zinc-900 mb-2">
                 Description *
               </label>
               <textarea
@@ -274,13 +274,13 @@ export default function ProjectForm() {
                 value={formData.description}
                 onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                 rows={4}
-                className="w-full border-2 border-gray-300 dark:border-gray-700 bg-white dark:bg-black text-zinc-900 dark:text-zinc-100 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-zinc-900 dark:focus:ring-zinc-100"
+                className="w-full border-2 border-gray-300 bg-white text-zinc-900 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-zinc-900"
                 required
               />
             </div>
 
             <div>
-              <label htmlFor="skills" className="block text-sm font-medium text-zinc-900 dark:text-zinc-100 mb-2">
+              <label htmlFor="skills" className="block text-sm font-medium text-zinc-900 mb-2">
                 Skills (comma-separated) *
               </label>
               <input
@@ -289,13 +289,13 @@ export default function ProjectForm() {
                 value={formData.skills}
                 onChange={(e) => setFormData({ ...formData, skills: e.target.value })}
                 placeholder="TypeScript, Node.js, React"
-                className="w-full border-2 border-gray-300 dark:border-gray-700 bg-white dark:bg-black text-zinc-900 dark:text-zinc-100 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-zinc-900 dark:focus:ring-zinc-100"
+                className="w-full border-2 border-gray-300 bg-white text-zinc-900 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-zinc-900"
                 required
               />
             </div>
 
             <div>
-              <label htmlFor="githubUrl" className="block text-sm font-medium text-zinc-900 dark:text-zinc-100 mb-2">
+              <label htmlFor="githubUrl" className="block text-sm font-medium text-zinc-900 mb-2">
                 GitHub URL (optional)
               </label>
               <input
@@ -303,12 +303,12 @@ export default function ProjectForm() {
                 id="githubUrl"
                 value={formData.githubUrl}
                 onChange={(e) => setFormData({ ...formData, githubUrl: e.target.value })}
-                className="w-full border-2 border-gray-300 dark:border-gray-700 bg-white dark:bg-black text-zinc-900 dark:text-zinc-100 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-zinc-900 dark:focus:ring-zinc-100"
+                className="w-full border-2 border-gray-300 bg-white text-zinc-900 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-zinc-900"
               />
             </div>
 
             <div>
-              <label htmlFor="liveUrl" className="block text-sm font-medium text-zinc-900 dark:text-zinc-100 mb-2">
+              <label htmlFor="liveUrl" className="block text-sm font-medium text-zinc-900 mb-2">
                 Live URL (optional)
               </label>
               <input
@@ -316,7 +316,7 @@ export default function ProjectForm() {
                 id="liveUrl"
                 value={formData.liveUrl}
                 onChange={(e) => setFormData({ ...formData, liveUrl: e.target.value })}
-                className="w-full border-2 border-gray-300 dark:border-gray-700 bg-white dark:bg-black text-zinc-900 dark:text-zinc-100 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-zinc-900 dark:focus:ring-zinc-100"
+                className="w-full border-2 border-gray-300 bg-white text-zinc-900 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-zinc-900"
               />
             </div>
           </div>
@@ -324,14 +324,14 @@ export default function ProjectForm() {
           <div className="flex gap-4 mt-6">
             <button
               type="submit"
-              className="flex-1 bg-zinc-900 dark:bg-zinc-100 text-zinc-100 dark:text-zinc-900 py-3 font-medium uppercase tracking-wider hover:bg-zinc-800 dark:hover:bg-zinc-200 transition-colors cursor-pointer"
+              className="flex-1 bg-zinc-900 text-white py-3 font-medium uppercase tracking-wider hover:bg-zinc-700 transition-colors cursor-pointer"
             >
               {editingProject ? 'Update Project' : 'Add Project'}
             </button>
             <button
               type="button"
               onClick={handleCloseModal}
-              className="px-6 bg-transparent border-2 border-gray-300 dark:border-gray-700 text-zinc-900 dark:text-zinc-100 py-3 font-medium uppercase tracking-wider hover:bg-zinc-100 dark:hover:bg-zinc-900 transition-colors cursor-pointer"
+              className="px-6 bg-transparent border-2 border-gray-300 text-zinc-900 py-3 font-medium uppercase tracking-wider hover:bg-zinc-100 transition-colors cursor-pointer"
             >
               Cancel
             </button>
