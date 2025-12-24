@@ -1,27 +1,27 @@
 [
   {
     "name": "Node.js",
-    "category": "Core Backend"
+    "category": "Core Stack"
   },
   {
     "name": "Express",
-    "category": "Core Backend"
+    "category": "Core Stack"
   },
   {
     "name": "TypeScript",
-    "category": "Core Backend"
+    "category": "Core Stack"
   },
   {
     "name": "JavaScript",
-    "category": "Core Backend"
+    "category": "Core Stack"
   },
   {
     "name": "GraphQL",
-    "category": "Core Backend"
+    "category": "Core Stack"
   },
   {
     "name": "Apollo",
-    "category": "Core Backend"
+    "category": "Core Stack"
   },
   {
     "name": "PostgreSQL",
@@ -78,5 +78,29 @@
   {
     "name": "Convex",
     "category": "Databases & ORM"
+  },
+  {
+    "name": "Elixir",
+    "category": "Core Stack"
+  },
+  {
+    "name": "Phoenix",
+    "category": "Core Stack"
+  },
+  {
+    "name": "Phoenix Liveview",
+    "category": "Core Stack"
+  },
+  {
+    "name": "Firebase",
+    "category": "Databases & ORM"
+  },
+  {
+    "name": "Svelte",
+    "category": "Core Stack"
+  },
+  {
+    "name": "Nextjs",
+    "category": "Core Stack"
   }
 ]
