@@ -1,12 +1,144 @@
 [
   {
-    "title": "Portfolio NEXT",
-    "description": "Custom personal blog space built with the power of Next.js and SSR.",
+    "title": "Portfolio Website",
+    "description": "Personal Portfolio website showcasing my skills",
     "skills": [
       "Next.js",
       "Tailwind",
       "TypeScript"
     ],
     "githubUrl": "https://github.com/puritygwaro"
+  },
+  {
+    "title": "Image Gallery",
+    "description": "Simple image gallery where you can search for images of anything",
+    "skills": [
+      "Nextjs",
+      "MUI",
+      "Vercel"
+    ],
+    "githubUrl": "https://github.com/PurityGwaro",
+    "liveUrl": "https://image-gallery-hng-3.vercel.app/login"
+  },
+  {
+    "title": "CSV UPLOAD",
+    "description": "App that allows uploading and parsing of csv files",
+    "skills": [
+      "Node.js",
+      "MongoDB",
+      "Reactjs"
+    ],
+    "githubUrl": "https://github.com/PurityGwaro/kudobuzz-csv-upload"
+  },
+  {
+    "title": "FeedbackUI",
+    "description": "A feedback form that allows a user to leave a rating and a message",
+    "skills": [
+      "Svelte"
+    ],
+    "githubUrl": "https://github.com/PurityGwaro/FeedbackUI-Svelte"
+  },
+  {
+    "title": "Adophile Ecommerce App",
+    "description": "Simple Ecommerce app",
+    "skills": [
+      "Typescript",
+      "Next.js",
+      "Tailwind",
+      "Convex"
+    ],
+    "githubUrl": "https://github.com/PurityGwaro/audiophile-ecommerce-app",
+    "liveUrl": "https://audiophile-ecommerce-hng13.netlify.app/"
+  },
+  {
+    "title": "Todo App",
+    "description": "Simple todo app",
+    "skills": [
+      "React Native",
+      "Convex"
+    ],
+    "githubUrl": "https://github.com/PurityGwaro/todo-app-react-native"
+  },
+  {
+    "title": "Mastra AI Agent",
+    "description": "An A2A AI agent that gives book suggestions per topic provided",
+    "skills": [
+      "Mastra",
+      "TypeScript"
+    ],
+    "githubUrl": "https://github.com/PurityGwaro/bookSuggestAgent"
+  },
+  {
+    "title": "Country GDP Calculation",
+    "description": "Simple BE app that takes in the country details and calculates their GDP and stores them in the DB",
+    "skills": [
+      "Node.js",
+      "MySQL",
+      "Express.js"
+    ],
+    "githubUrl": "https://github.com/PurityGwaro/countrydetails"
+  },
+  {
+    "title": "Ticket Management System",
+    "description": "Simple ticket management system",
+    "skills": [
+      "Vue",
+      "Tailwind",
+      "localStorage"
+    ],
+    "githubUrl": "https://github.com/PurityGwaro/ticket-mngment-vue",
+    "liveUrl": "https://ticket-mngment-vue.netlify.app/"
+  },
+  {
+    "title": "String Analyzer",
+    "description": "BE project that takes in a string and performs a few operations on it before storing it in the DB",
+    "skills": [
+      "MongoDB",
+      "Node.js"
+    ],
+    "githubUrl": "https://github.com/PurityGwaro/string-analyzer"
+  },
+  {
+    "title": "Github Users",
+    "description": "Simple App where you can search github users using their github usernames and get a summary of their activity",
+    "skills": [
+      "Elixir",
+      "Phoenix",
+      "Phoenix Liveview"
+    ],
+    "githubUrl": "https://github.com/PurityGwaro/github-users-ex",
+    "liveUrl": "https://users-of-git.fly.dev/"
+  },
+  {
+    "title": "Movie App",
+    "description": "Simple movie app",
+    "skills": [
+      "Nextjs",
+      "Tailwind"
+    ],
+    "githubUrl": "https://github.com/PurityGwaro/stage2-hng-movie-app",
+    "liveUrl": "https://stage2-hng-movie-app.vercel.app/"
+  },
+  {
+    "title": "Portfolio Site",
+    "description": "simple portfolio website",
+    "skills": [
+      "Nextjs",
+      "Tailwind",
+      "MongoDB"
+    ],
+    "githubUrl": "https://github.com/PurityGwaro/portfolio-site",
+    "liveUrl": "https://purity-gwaro.netlify.app/"
+  },
+  {
+    "title": "Invoice Generator",
+    "description": "simple invoice generator app",
+    "skills": [
+      "Elixir",
+      "Phoenix",
+      "Phoenix Liveview",
+      "PostgreSQL"
+    ],
+    "githubUrl": "https://github.com/PurityGwaro/invoice-generator"
   }
 ]

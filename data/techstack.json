@@ -74,5 +74,9 @@
   {
     "name": "Postman",
     "category": "Developer Tools"
+  },
+  {
+    "name": "Convex",
+    "category": "Databases & ORM"
   }
 ]
