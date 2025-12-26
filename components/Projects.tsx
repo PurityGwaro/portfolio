@@ -21,7 +21,7 @@ export default function Projects({ projects }: ProjectsProps) {
     <section id="projects" className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-24">
       <div className="text-center mb-12 sm:mb-16">
         <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold uppercase tracking-tight text-zinc-900">
-          Expertise
+          Projects
         </h2>
         <p className="mt-3 sm:mt-4 text-base sm:text-lg text-zinc-600 px-4">
           Turning complex challenges into simple, scalable solutions.
