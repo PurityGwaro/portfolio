@@ -50,7 +50,7 @@ export default function ProjectsPage() {
               ))}
             </div>
 
-            <div className="flex flex-row items-center gap-3 pt-4 border-t border-gray-300">
+            <div className="flex flex-col items-start gap-3 pt-4 border-t border-gray-300">
               {project.githubUrl && (
                 <a
                   href={project.githubUrl}
@@ -70,8 +70,8 @@ export default function ProjectsPage() {
                   rel="noopener noreferrer"
                   className="flex items-center gap-2 text-sm font-medium uppercase tracking-wider text-zinc-900 hover:opacity-70 transition-opacity"
                 >
+                  <ExternalLink className="h-4 w-4" />
                   Live Demo
-                  <ExternalLink className="h-3 w-3" />
                 </a>
               )}
             </div>
