@@ -3,28 +3,37 @@
 import Link from 'next/link';
 import { useAuth } from './AuthProvider';
 import { LogOut, Menu, X } from 'lucide-react';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
+import { useQuery } from 'convex/react';
+import { api } from '@/convex/_generated/api';
+
+function ResumeLink({ mobile = false }: { mobile?: boolean }) {
+  const resumeUrl = useQuery(api.resume.getResumeUrl);
+
+  if (!resumeUrl) return null;
+
+  const className = mobile
+    ? "px-4 py-3 text-sm font-medium uppercase tracking-wider text-zinc-900 hover:bg-zinc-100 transition-colors cursor-pointer block"
+    : "text-sm font-medium uppercase tracking-wider text-zinc-900 hover:opacity-70 transition-opacity cursor-pointer";
+
+  return (
+    <a
+      href={resumeUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={className}
+    >
+      Resume
+    </a>
+  );
+}
 
 export default function Navigation() {
   const { isAuthenticated, logout } = useAuth();
-  const [hasResume, setHasResume] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  useEffect(() => {
-    const checkResume = async () => {
-      try {
-        const response = await fetch('/api/resume/check');
-        if (response.ok) {
-          const data = await response.json();
-          setHasResume(data.exists);
-        }
-      } catch (error) {
-        console.error('Error checking resume existence:', error);
-        setHasResume(false);
-      }
-    };
-    checkResume();
-  }, []);
+  const resumeCheck = useQuery(api.resume.checkResume);
+  const hasResume = resumeCheck?.exists ?? false;
 
   const closeMobileMenu = () => setIsMobileMenuOpen(false);
 
@@ -59,13 +68,7 @@ export default function Navigation() {
             Blog
           </Link>
           {hasResume && (
-            <a
-              href="/api/resume"
-              download
-              className="text-sm font-medium uppercase tracking-wider text-zinc-900 hover:opacity-70 transition-opacity cursor-pointer"
-            >
-              Resume
-            </a>
+            <ResumeLink />
           )}
 
           {isAuthenticated && (
@@ -127,14 +130,9 @@ export default function Navigation() {
               Blog
             </Link>
             {hasResume && (
-              <a
-                href="/api/resume"
-                download
-                onClick={closeMobileMenu}
-                className="px-4 py-3 text-sm font-medium uppercase tracking-wider text-zinc-900 hover:bg-zinc-100 transition-colors cursor-pointer"
-              >
-                Resume
-              </a>
+              <div onClick={closeMobileMenu}>
+                <ResumeLink mobile />
+              </div>
             )}
 
             {isAuthenticated && (
