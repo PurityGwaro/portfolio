@@ -154,7 +154,7 @@ export default function ResumeForm() {
                 No Resume Found
               </p>
               <p className="text-xs text-zinc-600">
-                Upload your first resume using the form above, or place resume.pdf in the /public folder.
+                Upload your first resume using the form above.
               </p>
             </div>
           </div>
