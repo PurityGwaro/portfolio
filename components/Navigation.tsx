@@ -44,7 +44,7 @@ export default function Navigation() {
           href="/"
           className="text-sm sm:text-base font-bold text-zinc-900 hover:opacity-70 transition-opacity"
         >
-          puritygwaro.dev
+          puritygwaro
         </Link>
 
         {/* Desktop Navigation */}
