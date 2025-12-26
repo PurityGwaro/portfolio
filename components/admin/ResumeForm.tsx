@@ -86,16 +86,17 @@ export default function ResumeForm() {
                 Current Resume
               </p>
               <p className="text-xs text-zinc-600">
-                resume.pdf
+                puritygwaro-resume.pdf
               </p>
             </div>
             {resumeUrl && (
               <a
                 href={resumeUrl}
-                download
+                target="_blank"
+                rel="noopener noreferrer"
                 className="w-full sm:w-auto text-center sm:text-left text-sm font-medium uppercase tracking-wider text-zinc-900 hover:opacity-70 transition-opacity cursor-pointer min-h-[44px] flex items-center justify-center sm:justify-start"
               >
-                Download
+                View Resume
               </a>
             )}
           </div>

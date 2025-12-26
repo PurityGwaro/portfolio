@@ -47,7 +47,7 @@ export default function ResumePage() {
           <h1 className="text-xl sm:text-2xl font-bold text-zinc-900">Resume</h1>
           <a
             href={resumeUrl}
-            download="Purity_Gwaro_Resume.pdf"
+            download="puritygwaro-resume.pdf"
             className="flex items-center gap-2 px-4 sm:px-6 py-2 sm:py-3 bg-zinc-900 text-white text-sm font-medium uppercase tracking-wider hover:bg-zinc-700 transition-colors"
           >
             <Download className="h-4 w-4" />
