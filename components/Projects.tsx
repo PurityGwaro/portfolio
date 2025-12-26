@@ -52,7 +52,7 @@ export default function Projects({ projects }: ProjectsProps) {
               ))}
             </div>
 
-            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 pt-4 border-t border-gray-300">
+            <div className="flex flex-row items-center gap-3 pt-4 border-t border-gray-300">
               {project.githubUrl && (
                 <a
                   href={project.githubUrl}
