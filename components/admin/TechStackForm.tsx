@@ -180,14 +180,14 @@ export default function TechStackForm() {
   const categories = Array.from(new Set(techStack.map((t: Tech) => t.category))).sort() as string[];
 
   return (
-    <div className="border-2 border-gray-300 p-8 bg-white">
-      <div className="flex items-center justify-between mb-6">
-        <h2 className="text-2xl font-bold text-zinc-900">
+    <div className="border-2 border-gray-300 p-4 sm:p-6 lg:p-8 bg-white">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
+        <h2 className="text-xl sm:text-2xl font-bold text-zinc-900">
           Technologies ({techStack.length})
         </h2>
         <button
           onClick={() => setIsModalOpen(true)}
-          className="flex items-center gap-2 bg-zinc-900 text-white px-6 py-3 font-medium uppercase tracking-wider hover:bg-zinc-700 transition-colors cursor-pointer"
+          className="w-full sm:w-auto flex items-center justify-center gap-2 bg-zinc-900 text-white px-6 py-3 font-medium uppercase tracking-wider hover:bg-zinc-700 transition-colors cursor-pointer text-xs sm:text-sm min-h-[44px]"
         >
           <Plus className="h-4 w-4" />
           Add Technology
@@ -208,10 +208,10 @@ export default function TechStackForm() {
                 </h4>
                 <button
                   onClick={() => handleEditCategory(category)}
-                  className="p-1 text-zinc-600 hover:text-zinc-900 transition-colors cursor-pointer"
+                  className="p-2 text-zinc-600 hover:text-zinc-900 transition-colors cursor-pointer min-h-[44px] min-w-[44px] flex items-center justify-center"
                   title="Edit category name"
                 >
-                  <Edit className="h-3 w-3" />
+                  <Edit className="h-4 w-4" />
                 </button>
               </div>
               <div className="space-y-2">
@@ -220,20 +220,20 @@ export default function TechStackForm() {
                     key={tech._id}
                     className="border-2 border-gray-300 p-3 flex items-center justify-between gap-4 bg-white"
                   >
-                    <span className="text-zinc-900">
+                    <span className="text-sm sm:text-base text-zinc-900 break-words">
                       {tech.name}
                     </span>
-                    <div className="flex gap-2">
+                    <div className="flex gap-2 flex-shrink-0">
                       <button
                         onClick={() => handleEdit(tech)}
-                        className="p-2 text-blue-600 hover:bg-blue-50 transition-colors cursor-pointer"
+                        className="p-2 text-blue-600 hover:bg-blue-50 transition-colors cursor-pointer min-h-[44px] min-w-[44px] flex items-center justify-center"
                         title="Edit technology"
                       >
                         <Edit className="h-4 w-4" />
                       </button>
                       <button
                         onClick={() => handleDeleteClick(tech._id, tech.name)}
-                        className="p-2 text-red-600 hover:bg-red-50 transition-colors cursor-pointer"
+                        className="p-2 text-red-600 hover:bg-red-50 transition-colors cursor-pointer min-h-[44px] min-w-[44px] flex items-center justify-center"
                         title="Delete technology"
                       >
                         <Trash2 className="h-4 w-4" />
@@ -323,17 +323,17 @@ export default function TechStackForm() {
             </div>
           </div>
 
-          <div className="flex gap-4 mt-6">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mt-6">
             <button
               type="submit"
-              className="flex-1 bg-zinc-900 text-white py-3 font-medium uppercase tracking-wider hover:bg-zinc-700 transition-colors cursor-pointer"
+              className="flex-1 bg-zinc-900 text-white py-3 font-medium uppercase tracking-wider hover:bg-zinc-700 transition-colors cursor-pointer text-xs sm:text-sm min-h-[44px]"
             >
               {editingTech ? 'Update Technology' : 'Add Technology'}
             </button>
             <button
               type="button"
               onClick={handleCloseModal}
-              className="px-6 bg-transparent border-2 border-gray-300 text-zinc-900 py-3 font-medium uppercase tracking-wider hover:bg-zinc-100 transition-colors cursor-pointer"
+              className="sm:px-6 bg-transparent border-2 border-gray-300 text-zinc-900 py-3 font-medium uppercase tracking-wider hover:bg-zinc-100 transition-colors cursor-pointer text-xs sm:text-sm min-h-[44px]"
             >
               Cancel
             </button>
@@ -362,16 +362,16 @@ export default function TechStackForm() {
             </p>
           </div>
 
-          <div className="flex gap-4">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
             <button
               onClick={handleCategoryUpdate}
-              className="flex-1 bg-zinc-900 text-white py-3 font-medium uppercase tracking-wider hover:bg-zinc-700 transition-colors cursor-pointer"
+              className="flex-1 bg-zinc-900 text-white py-3 font-medium uppercase tracking-wider hover:bg-zinc-700 transition-colors cursor-pointer text-xs sm:text-sm min-h-[44px]"
             >
               Update Category
             </button>
             <button
               onClick={() => setIsCategoryModalOpen(false)}
-              className="px-6 bg-transparent border-2 border-gray-300 text-zinc-900 py-3 font-medium uppercase tracking-wider hover:bg-zinc-100 transition-colors cursor-pointer"
+              className="sm:px-6 bg-transparent border-2 border-gray-300 text-zinc-900 py-3 font-medium uppercase tracking-wider hover:bg-zinc-100 transition-colors cursor-pointer text-xs sm:text-sm min-h-[44px]"
             >
               Cancel
             </button>

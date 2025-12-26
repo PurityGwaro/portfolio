@@ -127,14 +127,14 @@ export default function BlogForm() {
   };
 
   return (
-    <div className="border-2 border-gray-300 p-8 bg-white">
-      <div className="flex items-center justify-between mb-6">
-        <h2 className="text-2xl font-bold text-zinc-900">
+    <div className="border-2 border-gray-300 p-4 sm:p-6 lg:p-8 bg-white">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
+        <h2 className="text-xl sm:text-2xl font-bold text-zinc-900">
           Blog Posts ({blogs.length})
         </h2>
         <button
           onClick={() => setIsModalOpen(true)}
-          className="flex items-center gap-2 bg-zinc-900 text-white px-6 py-3 font-medium uppercase tracking-wider hover:bg-zinc-700 transition-colors cursor-pointer"
+          className="w-full sm:w-auto flex items-center justify-center gap-2 bg-zinc-900 text-white px-6 py-3 font-medium uppercase tracking-wider hover:bg-zinc-700 transition-colors cursor-pointer text-xs sm:text-sm min-h-[44px]"
         >
           <Plus className="h-4 w-4" />
           Add Blog Post
@@ -150,9 +150,9 @@ export default function BlogForm() {
           {blogs.map((blog: BlogPost) => (
             <div
               key={blog._id}
-              className="border-2 border-gray-300 p-4 flex items-start justify-between gap-4 bg-white"
+              className="border-2 border-gray-300 p-4 flex flex-col sm:flex-row items-start justify-between gap-4 bg-white"
             >
-              <div className="flex-1">
+              <div className="flex-1 w-full sm:w-auto">
                 <h4 className="font-bold text-zinc-900 mb-1">
                   {blog.title}
                 </h4>
@@ -163,22 +163,22 @@ export default function BlogForm() {
                   href={blog.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-xs text-blue-600 hover:underline cursor-pointer"
+                  className="text-xs text-blue-600 hover:underline cursor-pointer break-all"
                 >
                   {blog.url}
                 </a>
               </div>
-              <div className="flex gap-2">
+              <div className="flex gap-2 w-full sm:w-auto justify-end">
                 <button
                   onClick={() => handleEdit(blog)}
-                  className="p-2 text-blue-600 hover:bg-blue-50 transition-colors cursor-pointer"
+                  className="p-2 text-blue-600 hover:bg-blue-50 transition-colors cursor-pointer min-h-[44px] min-w-[44px] flex items-center justify-center"
                   title="Edit blog post"
                 >
                   <Edit className="h-5 w-5" />
                 </button>
                 <button
                   onClick={() => handleDeleteClick(blog._id, blog.title)}
-                  className="p-2 text-red-600 hover:bg-red-50 transition-colors cursor-pointer"
+                  className="p-2 text-red-600 hover:bg-red-50 transition-colors cursor-pointer min-h-[44px] min-w-[44px] flex items-center justify-center"
                   title="Delete blog post"
                 >
                   <Trash2 className="h-5 w-5" />
@@ -240,17 +240,17 @@ export default function BlogForm() {
             </div>
           </div>
 
-          <div className="flex gap-4 mt-6">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mt-6">
             <button
               type="submit"
-              className="flex-1 bg-zinc-900 text-white py-3 font-medium uppercase tracking-wider hover:bg-zinc-700 transition-colors cursor-pointer"
+              className="flex-1 bg-zinc-900 text-white py-3 font-medium uppercase tracking-wider hover:bg-zinc-700 transition-colors cursor-pointer text-xs sm:text-sm min-h-[44px]"
             >
               {editingBlog ? 'Update Blog Post' : 'Add Blog Post'}
             </button>
             <button
               type="button"
               onClick={handleCloseModal}
-              className="px-6 bg-transparent border-2 border-gray-300 text-zinc-900 py-3 font-medium uppercase tracking-wider hover:bg-zinc-100 transition-colors cursor-pointer"
+              className="sm:px-6 bg-transparent border-2 border-gray-300 text-zinc-900 py-3 font-medium uppercase tracking-wider hover:bg-zinc-100 transition-colors cursor-pointer text-xs sm:text-sm min-h-[44px]"
             >
               Cancel
             </button>

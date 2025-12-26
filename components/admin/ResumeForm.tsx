@@ -67,20 +67,20 @@ export default function ResumeForm() {
   };
 
   return (
-    <div className="border-2 border-gray-300 p-8 bg-white">
+    <div className="border-2 border-gray-300 p-4 sm:p-6 lg:p-8 bg-white">
       <div className="mb-6">
-        <h2 className="text-2xl font-bold text-zinc-900 mb-2">
+        <h2 className="text-xl sm:text-2xl font-bold text-zinc-900 mb-2">
           Resume
         </h2>
-        <p className="text-sm text-zinc-600">
+        <p className="text-xs sm:text-sm text-zinc-600">
           Upload and manage your resume (PDF only, max 5MB)
         </p>
       </div>
 
       <div className="space-y-6">
         {hasResume && (
-          <div className="flex items-center gap-3 p-4 border-2 border-gray-300 bg-white">
-            <FileText className="h-5 w-5 text-zinc-900" />
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 p-4 border-2 border-gray-300 bg-white">
+            <FileText className="h-5 w-5 text-zinc-900 flex-shrink-0" />
             <div className="flex-1">
               <p className="text-sm font-medium text-zinc-900">
                 Current Resume
@@ -93,7 +93,7 @@ export default function ResumeForm() {
               <a
                 href={resumeUrl}
                 download
-                className="text-sm font-medium uppercase tracking-wider text-zinc-900 hover:opacity-70 transition-opacity cursor-pointer"
+                className="w-full sm:w-auto text-center sm:text-left text-sm font-medium uppercase tracking-wider text-zinc-900 hover:opacity-70 transition-opacity cursor-pointer min-h-[44px] flex items-center justify-center sm:justify-start"
               >
                 Download
               </a>
@@ -101,7 +101,7 @@ export default function ResumeForm() {
           </div>
         )}
 
-        <div className="border-2 border-gray-300 bg-zinc-50 p-6">
+        <div className="border-2 border-gray-300 bg-zinc-50 p-4 sm:p-6">
           <h3 className="text-sm font-bold text-zinc-900 mb-4">
             Upload New Resume
           </h3>
@@ -110,10 +110,10 @@ export default function ResumeForm() {
             <div>
               <label
                 htmlFor="resume-upload"
-                className="flex items-center justify-center gap-2 p-4 border-2 border-dashed border-gray-300 bg-white cursor-pointer hover:bg-zinc-50 transition-colors"
+                className="flex flex-col sm:flex-row items-center justify-center gap-2 p-4 sm:p-6 border-2 border-dashed border-gray-300 bg-white cursor-pointer hover:bg-zinc-50 transition-colors min-h-[44px]"
               >
                 <Upload className="h-5 w-5 text-zinc-600" />
-                <span className="text-sm text-zinc-600">
+                <span className="text-xs sm:text-sm text-zinc-600 text-center sm:text-left break-all px-2">
                   {file ? file.name : 'Choose PDF file'}
                 </span>
               </label>
@@ -132,14 +132,14 @@ export default function ResumeForm() {
                   ? 'border-green-300 bg-green-50 text-green-900'
                   : 'border-red-300 bg-red-50 text-red-900'
               }`}>
-                <p className="text-xs">{message.text}</p>
+                <p className="text-xs sm:text-sm">{message.text}</p>
               </div>
             )}
 
             <button
               onClick={handleUpload}
               disabled={!file || uploading}
-              className="w-full px-6 py-3 bg-zinc-900 text-white text-sm font-medium uppercase tracking-wider hover:bg-zinc-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full px-6 py-3 bg-zinc-900 text-white text-xs sm:text-sm font-medium uppercase tracking-wider hover:bg-zinc-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed min-h-[44px]"
             >
               {uploading ? 'Uploading...' : 'Upload Resume'}
             </button>
@@ -148,7 +148,7 @@ export default function ResumeForm() {
 
         {!hasResume && (
           <div className="flex items-start gap-3 p-4 border-2 border-gray-300 bg-zinc-50">
-            <AlertCircle className="h-5 w-5 text-zinc-600 mt-0.5" />
+            <AlertCircle className="h-5 w-5 text-zinc-600 mt-0.5 flex-shrink-0" />
             <div>
               <p className="text-sm font-medium text-zinc-900 mb-1">
                 No Resume Found
