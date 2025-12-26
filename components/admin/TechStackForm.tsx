@@ -1,12 +1,15 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
+import { useQuery, useMutation } from 'convex/react';
+import { api } from '@/convex/_generated/api';
 import { Trash2, Edit, Plus } from 'lucide-react';
 import Modal from '@/components/Modal';
 import ConfirmModal from '@/components/ConfirmModal';
 import Toast from '@/components/Toast';
 
 interface Tech {
+  _id: string;
   name: string;
   category: string;
 }
@@ -17,14 +20,13 @@ export default function TechStackForm() {
     category: '',
     newCategory: '',
   });
-  const [techStack, setTechStack] = useState<Tech[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [editingTech, setEditingTech] = useState<string | null>(null);
+  const [editingTech, setEditingTech] = useState<{id: string; name: string} | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isCategoryModalOpen, setIsCategoryModalOpen] = useState(false);
   const [editingCategory, setEditingCategory] = useState<{ old: string; new: string }>({ old: '', new: '' });
-  const [deleteConfirm, setDeleteConfirm] = useState<{ isOpen: boolean; name: string }>({
+  const [deleteConfirm, setDeleteConfirm] = useState<{ isOpen: boolean; id: string; name: string }>({
     isOpen: false,
+    id: '',
     name: '',
   });
   const [toast, setToast] = useState<{ message: string; type: 'success' | 'error'; isVisible: boolean }>({
@@ -34,26 +36,13 @@ export default function TechStackForm() {
   });
   const [useCustomCategory, setUseCustomCategory] = useState(false);
 
-  useEffect(() => {
-    fetchTechStack();
-  }, []);
+  const techStack = useQuery(api.techstack.list) ?? [];
+  const createTech = useMutation(api.techstack.create);
+  const updateTech = useMutation(api.techstack.update);
+  const removeTech = useMutation(api.techstack.remove);
 
   const showToast = (message: string, type: 'success' | 'error') => {
     setToast({ message, type, isVisible: true });
-  };
-
-  const fetchTechStack = async () => {
-    try {
-      const response = await fetch('/api/techstack');
-      if (response.ok) {
-        const data = await response.json();
-        setTechStack(data);
-      }
-    } catch (error) {
-      console.error('Error fetching tech stack:', error);
-    } finally {
-      setLoading(false);
-    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -73,50 +62,29 @@ export default function TechStackForm() {
 
     try {
       if (editingTech) {
-        const response = await fetch('/api/techstack', {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ oldName: editingTech, tech: techData }),
+        await updateTech({
+          id: editingTech.id,
+          ...techData,
         });
-
-        if (response.ok) {
-          showToast('Technology updated successfully!', 'success');
-          setEditingTech(null);
-          setFormData({
-            name: '',
-            category: '',
-            newCategory: '',
-          });
-          setUseCustomCategory(false);
-          fetchTechStack();
-          setIsModalOpen(false);
-        } else {
-          showToast('Failed to update technology. Please try again.', 'error');
-        }
+        showToast('Technology updated successfully!', 'success');
+        setEditingTech(null);
+        setFormData({
+          name: '',
+          category: '',
+          newCategory: '',
+        });
+        setUseCustomCategory(false);
+        setIsModalOpen(false);
       } else {
-        const response = await fetch('/api/techstack', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(techData),
+        await createTech(techData);
+        showToast('Technology added successfully!', 'success');
+        setFormData({
+          name: '',
+          category: '',
+          newCategory: '',
         });
-
-        if (response.ok) {
-          showToast('Technology added successfully!', 'success');
-          setFormData({
-            name: '',
-            category: '',
-            newCategory: '',
-          });
-          setUseCustomCategory(false);
-          fetchTechStack();
-          setIsModalOpen(false);
-        } else {
-          showToast('Failed to add technology. Please try again.', 'error');
-        }
+        setUseCustomCategory(false);
+        setIsModalOpen(false);
       }
     } catch (error) {
       showToast('Error: ' + (error instanceof Error ? error.message : 'Unknown error'), 'error');
@@ -124,7 +92,7 @@ export default function TechStackForm() {
   };
 
   const handleEdit = (tech: Tech) => {
-    setEditingTech(tech.name);
+    setEditingTech({id: tech._id, name: tech.name});
     setFormData({
       name: tech.name,
       category: tech.category,
@@ -145,32 +113,24 @@ export default function TechStackForm() {
     setUseCustomCategory(false);
   };
 
-  const handleDeleteClick = (name: string) => {
-    setDeleteConfirm({ isOpen: true, name });
+  const handleDeleteClick = (id: string, name: string) => {
+    setDeleteConfirm({ isOpen: true, id, name });
   };
 
   const handleDeleteConfirm = async () => {
-    const name = deleteConfirm.name;
-    setDeleteConfirm({ isOpen: false, name: '' });
+    const id = deleteConfirm.id;
+    setDeleteConfirm({ isOpen: false, id: '', name: '' });
 
     try {
-      const response = await fetch(`/api/techstack?name=${encodeURIComponent(name)}`, {
-        method: 'DELETE',
-      });
-
-      if (response.ok) {
-        showToast('Technology deleted successfully!', 'success');
-        fetchTechStack();
-      } else {
-        showToast('Failed to delete technology. Please try again.', 'error');
-      }
+      await removeTech({ id });
+      showToast('Technology deleted successfully!', 'success');
     } catch (error) {
       showToast('Error: ' + (error instanceof Error ? error.message : 'Unknown error'), 'error');
     }
   };
 
   const handleDeleteCancel = () => {
-    setDeleteConfirm({ isOpen: false, name: '' });
+    setDeleteConfirm({ isOpen: false, id: '', name: '' });
   };
 
   const handleEditCategory = (category: string) => {
@@ -186,32 +146,26 @@ export default function TechStackForm() {
 
     try {
       // Update all technologies with the old category to the new category
-      const techsToUpdate = techStack.filter(t => t.category === editingCategory.old);
+      const techsToUpdate = techStack.filter((t: Tech) => t.category === editingCategory.old);
 
       for (const tech of techsToUpdate) {
-        await fetch('/api/techstack', {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            oldName: tech.name,
-            tech: { name: tech.name, category: editingCategory.new }
-          }),
+        await updateTech({
+          id: tech._id,
+          name: tech.name,
+          category: editingCategory.new
         });
       }
 
       showToast('Category updated successfully!', 'success');
       setIsCategoryModalOpen(false);
       setEditingCategory({ old: '', new: '' });
-      fetchTechStack();
     } catch (error) {
       showToast('Error updating category: ' + (error instanceof Error ? error.message : 'Unknown error'), 'error');
     }
   };
 
   // Group tech by category for display
-  const groupedTech = techStack.reduce((acc, tech) => {
+  const groupedTech = techStack.reduce((acc: Record<string, Tech[]>, tech: Tech) => {
     if (!acc[tech.category]) {
       acc[tech.category] = [];
     }
@@ -220,7 +174,7 @@ export default function TechStackForm() {
   }, {} as Record<string, Tech[]>);
 
   // Get unique categories for dropdown
-  const categories = Array.from(new Set(techStack.map(t => t.category))).sort();
+  const categories = Array.from(new Set(techStack.map((t: Tech) => t.category))).sort() as string[];
 
   return (
     <div className="border-2 border-gray-300 p-8 bg-white">
@@ -237,7 +191,7 @@ export default function TechStackForm() {
         </button>
       </div>
 
-      {loading ? (
+      {techStack === undefined ? (
         <p className="text-zinc-600">Loading...</p>
       ) : techStack.length === 0 ? (
         <p className="text-zinc-600">No technologies yet.</p>
@@ -258,9 +212,9 @@ export default function TechStackForm() {
                 </button>
               </div>
               <div className="space-y-2">
-                {techs.map((tech) => (
+                {(techs as Tech[]).map((tech: Tech) => (
                   <div
-                    key={tech.name}
+                    key={tech._id}
                     className="border-2 border-gray-300 p-3 flex items-center justify-between gap-4 bg-white"
                   >
                     <span className="text-zinc-900">
@@ -275,7 +229,7 @@ export default function TechStackForm() {
                         <Edit className="h-4 w-4" />
                       </button>
                       <button
-                        onClick={() => handleDeleteClick(tech.name)}
+                        onClick={() => handleDeleteClick(tech._id, tech.name)}
                         className="p-2 text-red-600 hover:bg-red-50 transition-colors cursor-pointer"
                         title="Delete technology"
                       >
@@ -325,7 +279,7 @@ export default function TechStackForm() {
                     required={!useCustomCategory}
                   >
                     <option value="">Select a category</option>
-                    {categories.map((cat) => (
+                    {categories.map((cat: string) => (
                       <option key={cat} value={cat}>
                         {cat}
                       </option>

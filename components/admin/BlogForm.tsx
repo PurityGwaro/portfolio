@@ -1,12 +1,15 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
+import { useQuery, useMutation } from 'convex/react';
+import { api } from '@/convex/_generated/api';
 import { Trash2, Edit, Plus } from 'lucide-react';
 import Modal from '@/components/Modal';
 import ConfirmModal from '@/components/ConfirmModal';
 import Toast from '@/components/Toast';
 
 interface BlogPost {
+  _id: string;
   title: string;
   description: string;
   url: string;
@@ -18,12 +21,11 @@ export default function BlogForm() {
     description: '',
     url: '',
   });
-  const [blogs, setBlogs] = useState<BlogPost[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [editingBlog, setEditingBlog] = useState<string | null>(null);
+  const [editingBlog, setEditingBlog] = useState<{id: string; title: string} | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [deleteConfirm, setDeleteConfirm] = useState<{ isOpen: boolean; title: string }>({
+  const [deleteConfirm, setDeleteConfirm] = useState<{ isOpen: boolean; id: string; title: string }>({
     isOpen: false,
+    id: '',
     title: '',
   });
   const [toast, setToast] = useState<{ message: string; type: 'success' | 'error'; isVisible: boolean }>({
@@ -32,26 +34,13 @@ export default function BlogForm() {
     isVisible: false,
   });
 
-  useEffect(() => {
-    fetchBlogs();
-  }, []);
+  const blogs = useQuery(api.blogs.list) ?? [];
+  const createBlog = useMutation(api.blogs.create);
+  const updateBlog = useMutation(api.blogs.update);
+  const removeBlog = useMutation(api.blogs.remove);
 
   const showToast = (message: string, type: 'success' | 'error') => {
     setToast({ message, type, isVisible: true });
-  };
-
-  const fetchBlogs = async () => {
-    try {
-      const response = await fetch('/api/blogs');
-      if (response.ok) {
-        const data = await response.json();
-        setBlogs(data);
-      }
-    } catch (error) {
-      console.error('Error fetching blogs:', error);
-    } finally {
-      setLoading(false);
-    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -60,49 +49,34 @@ export default function BlogForm() {
     try {
       if (editingBlog) {
         // Update existing blog
-        const response = await fetch('/api/blogs', {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ oldTitle: editingBlog, blog: formData }),
+        await updateBlog({
+          id: editingBlog.id,
+          title: formData.title,
+          description: formData.description,
+          url: formData.url,
         });
-
-        if (response.ok) {
-          showToast('Blog post updated successfully!', 'success');
-          setEditingBlog(null);
-          setFormData({
-            title: '',
-            description: '',
-            url: '',
-          });
-          fetchBlogs();
-          setIsModalOpen(false);
-        } else {
-          showToast('Failed to update blog post. Please try again.', 'error');
-        }
+        showToast('Blog post updated successfully!', 'success');
+        setEditingBlog(null);
+        setFormData({
+          title: '',
+          description: '',
+          url: '',
+        });
+        setIsModalOpen(false);
       } else {
         // Add new blog
-        const response = await fetch('/api/blogs', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(formData),
+        await createBlog({
+          title: formData.title,
+          description: formData.description,
+          url: formData.url,
         });
-
-        if (response.ok) {
-          showToast('Blog post added successfully!', 'success');
-          setFormData({
-            title: '',
-            description: '',
-            url: '',
-          });
-          fetchBlogs();
-          setIsModalOpen(false);
-        } else {
-          showToast('Failed to add blog post. Please try again.', 'error');
-        }
+        showToast('Blog post added successfully!', 'success');
+        setFormData({
+          title: '',
+          description: '',
+          url: '',
+        });
+        setIsModalOpen(false);
       }
     } catch (error) {
       showToast('Error: ' + (error instanceof Error ? error.message : 'Unknown error'), 'error');
@@ -110,7 +84,7 @@ export default function BlogForm() {
   };
 
   const handleEdit = (blog: BlogPost) => {
-    setEditingBlog(blog.title);
+    setEditingBlog({id: blog._id, title: blog.title});
     setFormData({
       title: blog.title,
       description: blog.description,
@@ -129,32 +103,24 @@ export default function BlogForm() {
     });
   };
 
-  const handleDeleteClick = (title: string) => {
-    setDeleteConfirm({ isOpen: true, title });
+  const handleDeleteClick = (id: string, title: string) => {
+    setDeleteConfirm({ isOpen: true, id, title });
   };
 
   const handleDeleteConfirm = async () => {
-    const title = deleteConfirm.title;
-    setDeleteConfirm({ isOpen: false, title: '' });
+    const id = deleteConfirm.id;
+    setDeleteConfirm({ isOpen: false, id: '', title: '' });
 
     try {
-      const response = await fetch(`/api/blogs?title=${encodeURIComponent(title)}`, {
-        method: 'DELETE',
-      });
-
-      if (response.ok) {
-        showToast('Blog post deleted successfully!', 'success');
-        fetchBlogs();
-      } else {
-        showToast('Failed to delete blog post. Please try again.', 'error');
-      }
+      await removeBlog({ id });
+      showToast('Blog post deleted successfully!', 'success');
     } catch (error) {
       showToast('Error: ' + (error instanceof Error ? error.message : 'Unknown error'), 'error');
     }
   };
 
   const handleDeleteCancel = () => {
-    setDeleteConfirm({ isOpen: false, title: '' });
+    setDeleteConfirm({ isOpen: false, id: '', title: '' });
   };
 
   return (
@@ -172,15 +138,15 @@ export default function BlogForm() {
         </button>
       </div>
 
-      {loading ? (
+      {blogs === undefined ? (
         <p className="text-zinc-600">Loading...</p>
       ) : blogs.length === 0 ? (
         <p className="text-zinc-600">No blog posts yet.</p>
       ) : (
         <div className="space-y-4">
-          {blogs.map((blog) => (
+          {blogs.map((blog: BlogPost) => (
             <div
-              key={blog.title}
+              key={blog._id}
               className="border-2 border-gray-300 p-4 flex items-start justify-between gap-4 bg-white"
             >
               <div className="flex-1">
@@ -208,7 +174,7 @@ export default function BlogForm() {
                   <Edit className="h-5 w-5" />
                 </button>
                 <button
-                  onClick={() => handleDeleteClick(blog.title)}
+                  onClick={() => handleDeleteClick(blog._id, blog.title)}
                   className="p-2 text-red-600 hover:bg-red-50 transition-colors cursor-pointer"
                   title="Delete blog post"
                 >

@@ -1,72 +1,65 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
-import { Upload, FileText } from 'lucide-react';
-import Toast from '@/components/Toast';
+import React, { useState } from 'react';
+import { useQuery, useMutation } from 'convex/react';
+import { api } from '@/convex/_generated/api';
+import { FileText, AlertCircle, Upload } from 'lucide-react';
 
 export default function ResumeForm() {
+  const [file, setFile] = useState<File | null>(null);
   const [uploading, setUploading] = useState(false);
-  const [hasResume, setHasResume] = useState(false);
-  const [toast, setToast] = useState<{ message: string; type: 'success' | 'error'; isVisible: boolean }>({
-    message: '',
-    type: 'success',
-    isVisible: false,
-  });
+  const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
 
-  const showToast = (message: string, type: 'success' | 'error') => {
-    setToast({ message, type, isVisible: true });
-  };
+  const resumeCheck = useQuery(api.resume.checkResume);
+  const hasResume = resumeCheck?.exists ?? false;
+  const resumeUrl = useQuery(api.resume.getResumeUrl);
+  const generateUploadUrl = useMutation(api.resume.generateUploadUrl);
+  const saveResumeId = useMutation(api.resume.saveResumeId);
 
-  const checkResumeExists = async () => {
-    try {
-      const response = await fetch('/api/resume/check');
-      if (response.ok) {
-        const data = await response.json();
-        setHasResume(data.exists);
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const selectedFile = e.target.files?.[0];
+    if (selectedFile) {
+      if (selectedFile.type !== 'application/pdf') {
+        setMessage({ type: 'error', text: 'Please select a PDF file' });
+        setFile(null);
+        return;
       }
-    } catch (error) {
-      console.error('Error checking resume:', error);
+      if (selectedFile.size > 5 * 1024 * 1024) {
+        setMessage({ type: 'error', text: 'File size must be less than 5MB' });
+        setFile(null);
+        return;
+      }
+      setFile(selectedFile);
+      setMessage(null);
     }
   };
 
-  useEffect(() => {
-    checkResumeExists();
-  }, []);
-
-  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
+  const handleUpload = async () => {
     if (!file) return;
 
-    if (file.type !== 'application/pdf') {
-      showToast('Please upload a PDF file', 'error');
-      return;
-    }
-
-    if (file.size > 5 * 1024 * 1024) {
-      showToast('File size must be less than 5MB', 'error');
-      return;
-    }
-
     setUploading(true);
+    setMessage(null);
 
     try {
-      const formData = new FormData();
-      formData.append('resume', file);
+      // Step 1: Get a short-lived upload URL
+      const uploadUrl = await generateUploadUrl();
 
-      const response = await fetch('/api/resume/upload', {
+      // Step 2: POST the file to the upload URL
+      const result = await fetch(uploadUrl, {
         method: 'POST',
-        body: formData,
+        headers: { 'Content-Type': file.type },
+        body: file,
       });
 
-      if (response.ok) {
-        showToast('Resume uploaded successfully!', 'success');
-        setHasResume(true);
-      } else {
-        const error = await response.json();
-        showToast(error.error || 'Failed to upload resume', 'error');
-      }
+      const { storageId } = await result.json();
+
+      // Step 3: Save the storage ID to the database
+      await saveResumeId({ storageId });
+
+      setMessage({ type: 'success', text: 'Resume uploaded successfully!' });
+      setFile(null);
     } catch (error) {
-      showToast('Error: ' + (error instanceof Error ? error.message : 'Unknown error'), 'error');
+      setMessage({ type: 'error', text: 'An error occurred while uploading' });
     } finally {
       setUploading(false);
     }
@@ -79,7 +72,7 @@ export default function ResumeForm() {
           Resume
         </h2>
         <p className="text-sm text-zinc-600">
-          Upload your resume in PDF format (max 5MB)
+          Upload and manage your resume (PDF only, max 5MB)
         </p>
       </div>
 
@@ -95,54 +88,77 @@ export default function ResumeForm() {
                 resume.pdf
               </p>
             </div>
-            <a
-              href="/api/resume"
-              download
-              className="text-sm font-medium uppercase tracking-wider text-zinc-900 hover:opacity-70 transition-opacity cursor-pointer"
-            >
-              Download
-            </a>
+            {resumeUrl && (
+              <a
+                href={resumeUrl}
+                download
+                className="text-sm font-medium uppercase tracking-wider text-zinc-900 hover:opacity-70 transition-opacity cursor-pointer"
+              >
+                Download
+              </a>
+            )}
           </div>
         )}
 
-        <div className="border-2 border-dashed border-gray-300 p-8 text-center">
-          <input
-            type="file"
-            id="resume-upload"
-            accept=".pdf"
-            onChange={handleFileUpload}
-            disabled={uploading}
-            className="hidden"
-          />
-          <label
-            htmlFor="resume-upload"
-            className="cursor-pointer flex flex-col items-center gap-4"
-          >
-            <Upload className="h-12 w-12 text-zinc-900" />
+        <div className="border-2 border-gray-300 bg-zinc-50 p-6">
+          <h3 className="text-sm font-bold text-zinc-900 mb-4">
+            Upload New Resume
+          </h3>
+
+          <div className="space-y-4">
             <div>
-              <p className="text-zinc-900 font-medium mb-1">
-                {uploading ? 'Uploading...' : hasResume ? 'Upload New Resume' : 'Upload Resume'}
+              <label
+                htmlFor="resume-upload"
+                className="flex items-center justify-center gap-2 p-4 border-2 border-dashed border-gray-300 bg-white cursor-pointer hover:bg-zinc-50 transition-colors"
+              >
+                <Upload className="h-5 w-5 text-zinc-600" />
+                <span className="text-sm text-zinc-600">
+                  {file ? file.name : 'Choose PDF file'}
+                </span>
+              </label>
+              <input
+                id="resume-upload"
+                type="file"
+                accept=".pdf"
+                onChange={handleFileChange}
+                className="hidden"
+              />
+            </div>
+
+            {message && (
+              <div className={`p-3 border-2 ${
+                message.type === 'success'
+                  ? 'border-green-300 bg-green-50 text-green-900'
+                  : 'border-red-300 bg-red-50 text-red-900'
+              }`}>
+                <p className="text-xs">{message.text}</p>
+              </div>
+            )}
+
+            <button
+              onClick={handleUpload}
+              disabled={!file || uploading}
+              className="w-full px-6 py-3 bg-zinc-900 text-white text-sm font-medium uppercase tracking-wider hover:bg-zinc-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {uploading ? 'Uploading...' : 'Upload Resume'}
+            </button>
+          </div>
+        </div>
+
+        {!hasResume && (
+          <div className="flex items-start gap-3 p-4 border-2 border-gray-300 bg-zinc-50">
+            <AlertCircle className="h-5 w-5 text-zinc-600 mt-0.5" />
+            <div>
+              <p className="text-sm font-medium text-zinc-900 mb-1">
+                No Resume Found
               </p>
-              <p className="text-sm text-zinc-600">
-                Click to browse or drag and drop
+              <p className="text-xs text-zinc-600">
+                Upload your first resume using the form above, or place resume.pdf in the /public folder.
               </p>
             </div>
-          </label>
-        </div>
-
-        <div className="text-xs text-zinc-600 space-y-1">
-          <p>• Only PDF files are accepted</p>
-          <p>• Maximum file size: 5MB</p>
-          <p>• {hasResume ? 'Uploading a new resume will replace the existing one' : 'No resume uploaded yet'}</p>
-        </div>
+          </div>
+        )}
       </div>
-
-      <Toast
-        message={toast.message}
-        type={toast.type}
-        isVisible={toast.isVisible}
-        onClose={() => setToast({ ...toast, isVisible: false })}
-      />
     </div>
   );
 }

@@ -1,12 +1,15 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
+import { useQuery, useMutation } from 'convex/react';
+import { api } from '@/convex/_generated/api';
 import { Trash2, Edit, Plus } from 'lucide-react';
 import Modal from '@/components/Modal';
 import ConfirmModal from '@/components/ConfirmModal';
 import Toast from '@/components/Toast';
 
 interface Project {
+  _id: string;
   title: string;
   description: string;
   skills: string[];
@@ -22,12 +25,11 @@ export default function ProjectForm() {
     githubUrl: '',
     liveUrl: '',
   });
-  const [projects, setProjects] = useState<Project[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [editingProject, setEditingProject] = useState<string | null>(null);
+  const [editingProject, setEditingProject] = useState<{id: string; title: string} | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [deleteConfirm, setDeleteConfirm] = useState<{ isOpen: boolean; title: string }>({
+  const [deleteConfirm, setDeleteConfirm] = useState<{ isOpen: boolean; id: string; title: string }>({
     isOpen: false,
+    id: '',
     title: '',
   });
   const [toast, setToast] = useState<{ message: string; type: 'success' | 'error'; isVisible: boolean }>({
@@ -36,26 +38,13 @@ export default function ProjectForm() {
     isVisible: false,
   });
 
-  useEffect(() => {
-    fetchProjects();
-  }, []);
+  const projects = useQuery(api.projects.list) ?? [];
+  const createProject = useMutation(api.projects.create);
+  const updateProject = useMutation(api.projects.update);
+  const removeProject = useMutation(api.projects.remove);
 
   const showToast = (message: string, type: 'success' | 'error') => {
     setToast({ message, type, isVisible: true });
-  };
-
-  const fetchProjects = async () => {
-    try {
-      const response = await fetch('/api/projects');
-      if (response.ok) {
-        const data = await response.json();
-        setProjects(data);
-      }
-    } catch (error) {
-      console.error('Error fetching projects:', error);
-    } finally {
-      setLoading(false);
-    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -63,7 +52,7 @@ export default function ProjectForm() {
 
     const skillsArray = formData.skills.split(',').map(s => s.trim()).filter(Boolean);
 
-    const project = {
+    const projectData = {
       title: formData.title,
       description: formData.description,
       skills: skillsArray,
@@ -74,53 +63,32 @@ export default function ProjectForm() {
     try {
       if (editingProject) {
         // Update existing project
-        const response = await fetch('/api/projects', {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ oldTitle: editingProject, project }),
+        await updateProject({
+          id: editingProject.id,
+          ...projectData,
         });
-
-        if (response.ok) {
-          showToast('Project updated successfully!', 'success');
-          setEditingProject(null);
-          setFormData({
-            title: '',
-            description: '',
-            skills: '',
-            githubUrl: '',
-            liveUrl: '',
-          });
-          fetchProjects();
-          setIsModalOpen(false);
-        } else {
-          showToast('Failed to update project. Please try again.', 'error');
-        }
+        showToast('Project updated successfully!', 'success');
+        setEditingProject(null);
+        setFormData({
+          title: '',
+          description: '',
+          skills: '',
+          githubUrl: '',
+          liveUrl: '',
+        });
+        setIsModalOpen(false);
       } else {
         // Add new project
-        const response = await fetch('/api/projects', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(project),
+        await createProject(projectData);
+        showToast('Project added successfully!', 'success');
+        setFormData({
+          title: '',
+          description: '',
+          skills: '',
+          githubUrl: '',
+          liveUrl: '',
         });
-
-        if (response.ok) {
-          showToast('Project added successfully!', 'success');
-          setFormData({
-            title: '',
-            description: '',
-            skills: '',
-            githubUrl: '',
-            liveUrl: '',
-          });
-          fetchProjects();
-          setIsModalOpen(false);
-        } else {
-          showToast('Failed to add project. Please try again.', 'error');
-        }
+        setIsModalOpen(false);
       }
     } catch (error) {
       showToast('Error: ' + (error instanceof Error ? error.message : 'Unknown error'), 'error');
@@ -128,7 +96,7 @@ export default function ProjectForm() {
   };
 
   const handleEdit = (project: Project) => {
-    setEditingProject(project.title);
+    setEditingProject({id: project._id, title: project.title});
     setFormData({
       title: project.title,
       description: project.description,
@@ -151,32 +119,24 @@ export default function ProjectForm() {
     });
   };
 
-  const handleDeleteClick = (title: string) => {
-    setDeleteConfirm({ isOpen: true, title });
+  const handleDeleteClick = (id: string, title: string) => {
+    setDeleteConfirm({ isOpen: true, id, title });
   };
 
   const handleDeleteConfirm = async () => {
-    const title = deleteConfirm.title;
-    setDeleteConfirm({ isOpen: false, title: '' });
+    const id = deleteConfirm.id;
+    setDeleteConfirm({ isOpen: false, id: '', title: '' });
 
     try {
-      const response = await fetch(`/api/projects?title=${encodeURIComponent(title)}`, {
-        method: 'DELETE',
-      });
-
-      if (response.ok) {
-        showToast('Project deleted successfully!', 'success');
-        fetchProjects();
-      } else {
-        showToast('Failed to delete project. Please try again.', 'error');
-      }
+      await removeProject({ id });
+      showToast('Project deleted successfully!', 'success');
     } catch (error) {
       showToast('Error: ' + (error instanceof Error ? error.message : 'Unknown error'), 'error');
     }
   };
 
   const handleDeleteCancel = () => {
-    setDeleteConfirm({ isOpen: false, title: '' });
+    setDeleteConfirm({ isOpen: false, id: '', title: '' });
   };
 
   return (
@@ -194,15 +154,15 @@ export default function ProjectForm() {
         </button>
       </div>
 
-      {loading ? (
+      {projects === undefined ? (
         <p className="text-zinc-600">Loading...</p>
       ) : projects.length === 0 ? (
         <p className="text-zinc-600">No projects yet.</p>
       ) : (
         <div className="space-y-4">
-          {projects.map((project) => (
+          {projects.map((project: Project) => (
             <div
-              key={project.title}
+              key={project._id}
               className="border-2 border-gray-300 p-4 flex items-start justify-between gap-4 bg-white"
             >
               <div className="flex-1">
@@ -213,7 +173,7 @@ export default function ProjectForm() {
                   {project.description}
                 </p>
                 <div className="flex flex-wrap gap-2">
-                  {project.skills.map((skill) => (
+                  {project.skills.map((skill: string) => (
                     <span
                       key={skill}
                       className="text-xs border border-gray-300 px-2 py-1 text-zinc-900"
@@ -232,7 +192,7 @@ export default function ProjectForm() {
                   <Edit className="h-5 w-5" />
                 </button>
                 <button
-                  onClick={() => handleDeleteClick(project.title)}
+                  onClick={() => handleDeleteClick(project._id, project.title)}
                   className="p-2 text-red-600 hover:bg-red-50 transition-colors cursor-pointer"
                   title="Delete project"
                 >
