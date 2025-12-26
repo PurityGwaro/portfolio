@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { useQuery, useMutation } from 'convex/react';
 import { api } from '@/convex/_generated/api';
+import { Id } from '@/convex/_generated/dataModel';
 import { FileText, AlertCircle, Upload } from 'lucide-react';
 
 export default function ResumeForm() {
@@ -51,7 +52,7 @@ export default function ResumeForm() {
         body: file,
       });
 
-      const { storageId } = await result.json();
+      const { storageId } = await result.json() as { storageId: Id<"_storage"> };
 
       // Step 3: Save the storage ID to the database
       await saveResumeId({ storageId });

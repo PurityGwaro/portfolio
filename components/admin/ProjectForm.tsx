@@ -3,13 +3,14 @@
 import { useState } from 'react';
 import { useQuery, useMutation } from 'convex/react';
 import { api } from '@/convex/_generated/api';
+import { Id } from '@/convex/_generated/dataModel';
 import { Trash2, Edit, Plus } from 'lucide-react';
 import Modal from '@/components/Modal';
 import ConfirmModal from '@/components/ConfirmModal';
 import Toast from '@/components/Toast';
 
 interface Project {
-  _id: string;
+  _id: Id<"projects">;
   title: string;
   description: string;
   skills: string[];
@@ -25,11 +26,11 @@ export default function ProjectForm() {
     githubUrl: '',
     liveUrl: '',
   });
-  const [editingProject, setEditingProject] = useState<{id: string; title: string} | null>(null);
+  const [editingProject, setEditingProject] = useState<{id: Id<"projects">; title: string} | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [deleteConfirm, setDeleteConfirm] = useState<{ isOpen: boolean; id: string; title: string }>({
+  const [deleteConfirm, setDeleteConfirm] = useState<{ isOpen: boolean; id: Id<"projects"> | null; title: string }>({
     isOpen: false,
-    id: '',
+    id: null,
     title: '',
   });
   const [toast, setToast] = useState<{ message: string; type: 'success' | 'error'; isVisible: boolean }>({
@@ -119,13 +120,15 @@ export default function ProjectForm() {
     });
   };
 
-  const handleDeleteClick = (id: string, title: string) => {
+  const handleDeleteClick = (id: Id<"projects">, title: string) => {
     setDeleteConfirm({ isOpen: true, id, title });
   };
 
   const handleDeleteConfirm = async () => {
     const id = deleteConfirm.id;
-    setDeleteConfirm({ isOpen: false, id: '', title: '' });
+    setDeleteConfirm({ isOpen: false, id: null, title: '' });
+
+    if (!id) return;
 
     try {
       await removeProject({ id });
@@ -136,7 +139,7 @@ export default function ProjectForm() {
   };
 
   const handleDeleteCancel = () => {
-    setDeleteConfirm({ isOpen: false, id: '', title: '' });
+    setDeleteConfirm({ isOpen: false, id: null, title: '' });
   };
 
   return (

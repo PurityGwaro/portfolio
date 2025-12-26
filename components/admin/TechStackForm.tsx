@@ -3,13 +3,14 @@
 import { useState } from 'react';
 import { useQuery, useMutation } from 'convex/react';
 import { api } from '@/convex/_generated/api';
+import { Id } from '@/convex/_generated/dataModel';
 import { Trash2, Edit, Plus } from 'lucide-react';
 import Modal from '@/components/Modal';
 import ConfirmModal from '@/components/ConfirmModal';
 import Toast from '@/components/Toast';
 
 interface Tech {
-  _id: string;
+  _id: Id<"techstack">;
   name: string;
   category: string;
 }
@@ -20,13 +21,13 @@ export default function TechStackForm() {
     category: '',
     newCategory: '',
   });
-  const [editingTech, setEditingTech] = useState<{id: string; name: string} | null>(null);
+  const [editingTech, setEditingTech] = useState<{id: Id<"techstack">; name: string} | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isCategoryModalOpen, setIsCategoryModalOpen] = useState(false);
   const [editingCategory, setEditingCategory] = useState<{ old: string; new: string }>({ old: '', new: '' });
-  const [deleteConfirm, setDeleteConfirm] = useState<{ isOpen: boolean; id: string; name: string }>({
+  const [deleteConfirm, setDeleteConfirm] = useState<{ isOpen: boolean; id: Id<"techstack"> | null; name: string }>({
     isOpen: false,
-    id: '',
+    id: null,
     name: '',
   });
   const [toast, setToast] = useState<{ message: string; type: 'success' | 'error'; isVisible: boolean }>({
@@ -113,13 +114,15 @@ export default function TechStackForm() {
     setUseCustomCategory(false);
   };
 
-  const handleDeleteClick = (id: string, name: string) => {
+  const handleDeleteClick = (id: Id<"techstack">, name: string) => {
     setDeleteConfirm({ isOpen: true, id, name });
   };
 
   const handleDeleteConfirm = async () => {
     const id = deleteConfirm.id;
-    setDeleteConfirm({ isOpen: false, id: '', name: '' });
+    setDeleteConfirm({ isOpen: false, id: null, name: '' });
+
+    if (!id) return;
 
     try {
       await removeTech({ id });
@@ -130,7 +133,7 @@ export default function TechStackForm() {
   };
 
   const handleDeleteCancel = () => {
-    setDeleteConfirm({ isOpen: false, id: '', name: '' });
+    setDeleteConfirm({ isOpen: false, id: null, name: '' });
   };
 
   const handleEditCategory = (category: string) => {
