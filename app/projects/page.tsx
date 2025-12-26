@@ -1,31 +1,13 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import { ExternalLink, Github } from 'lucide-react';
-import { Project } from '@/components/Projects';
+import { useQuery } from 'convex/react';
+import { api } from '@/convex/_generated/api';
 
 export default function ProjectsPage() {
-  const [projects, setProjects] = useState<Project[]>([]);
-  const [loading, setLoading] = useState(true);
+  const projects = useQuery(api.projects.list) ?? [];
 
-  useEffect(() => {
-    const fetchProjects = async () => {
-      try {
-        const response = await fetch('/api/projects');
-        if (response.ok) {
-          const data = await response.json();
-          setProjects(data);
-        }
-      } catch (error) {
-        console.error('Error fetching projects:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchProjects();
-  }, []);
-
-  if (loading) {
+  if (projects === undefined) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-white">
         <p className="text-zinc-600">Loading projects...</p>
